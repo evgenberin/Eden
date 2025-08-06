@@ -22,7 +22,7 @@ const API_BASE_URL = "https://6891f14a447ff4f11fbe7065.mockapi.io/users";
 app.use("/api", (req, res, next) => {
   const referer = req.headers.referer || "";
   if (
-    !referer.startsWith("https://eden-teyz.onrender.com") &&
+    !referer.startsWith("https://eden-batw.onrender.com/") &&
     !referer.startsWith("http://localhost")
   ) {
     return res.status(403).json({ error: "Forbidden" });
