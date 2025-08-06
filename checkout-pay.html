@@ -662,7 +662,7 @@
     </script>
     <script>
         // ✅ Khai báo URL API một lần
-        const API_BASE_URL = "https://eden-batw.onrender.com/api/users";
+        const API_BASE_URL = `${window.location.origin}/api/users`;
         async function handleLoad() {
             const userInfo = JSON.parse(localStorage.getItem("userInfo"));
             const savedUser = JSON.parse(localStorage.getItem("selectedUser"));
