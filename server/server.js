@@ -19,16 +19,16 @@ app.use(express.static(path.join(__dirname, ".."))); // phục vụ tất cả f
 const API_BASE_URL = "https://6891f14a447ff4f11fbe7065.mockapi.io/users";
 
 // ✅ Middleware chặn truy cập không hợp lệ (allow localhost khi dev)
-app.use("/api", (req, res, next) => {
-  const referer = req.headers.referer || "";
-  if (
-    !referer.startsWith("https://eden-batw.onrender.com/") &&
-    !referer.startsWith("http://localhost")
-  ) {
-    return res.status(403).json({ error: "Forbidden" });
-  }
-  next();
-});
+// app.use("/api", (req, res, next) => {
+//   const referer = req.headers.referer || "";
+//   if (
+//     !referer.startsWith("https://eden-batw.onrender.com/") &&
+//     !referer.startsWith("http://localhost")
+//   ) {
+//     return res.status(403).json({ error: "Forbidden" });
+//   }
+//   next();
+// });
 
 // ✅ GET users (trả dữ liệu đầy đủ cho frontend)
 app.get("/api/users", async (req, res) => {
