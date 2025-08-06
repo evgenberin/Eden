@@ -9,7 +9,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-app.use(cors()); // Cho phép tất cả domain
+app.use(cors());
 app.use(express.json());
 
 // ===== Serve frontend =====
@@ -18,29 +18,42 @@ app.use(express.static(path.join(__dirname, ".."))); // phục vụ tất cả f
 // ===== API Proxy =====
 const API_BASE_URL = "https://6891f14a447ff4f11fbe7065.mockapi.io/users";
 
-// ❌ BỎ check referer để tránh 403 khi fetch từ GitHub Pages
-// Nếu muốn check referer thì cần log ra để biết thực tế trình duyệt gửi gì
+// ✅ Middleware chặn truy cập không hợp lệ (allow localhost khi dev)
+app.use("/api", (req, res, next) => {
+  const referer = req.headers.referer || "";
+  if (
+    !referer.startsWith("https://eden-teyz.onrender.com") &&
+    !referer.startsWith("http://localhost")
+  ) {
+    return res.status(403).json({ error: "Forbidden" });
+  }
+  next();
+});
 
-// ✅ GET users
+// ✅ GET users (trả dữ liệu đầy đủ cho frontend)
 app.get("/api/users", async (req, res) => {
   try {
     const response = await fetch(API_BASE_URL);
+    if (!response.ok) {
+      return res.status(response.status).json({ error: "API GET lỗi" });
+    }
+
     const users = await response.json();
 
-    // Trả cả các field cần thiết để frontend không bị undefined
+    // Giữ đủ field cần cho frontend
     const safeUsers = users.map(u => ({
       id: u.id,
-      bookingcode: u.bookingcode,
-      linkqr: u.linkqr,
-      amount: u.amount,
       name: u.name,
       status: u.status,
-      sort: u.sort
+      sort: u.sort,
+      bookingcode: u.bookingcode,
+      linkqr: u.linkqr,
+      amount: u.amount
     }));
 
     res.json(safeUsers);
   } catch (error) {
-    console.error("Lỗi khi GET users:", error);
+    console.error("❌ Lỗi khi GET API:", error);
     res.status(500).json({ error: "Lỗi khi gọi API" });
   }
 });
@@ -54,10 +67,15 @@ app.put("/api/users/:id", async (req, res) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(req.body),
     });
+
+    if (!response.ok) {
+      return res.status(response.status).json({ error: "API PUT lỗi" });
+    }
+
     const data = await response.json();
     res.json(data);
   } catch (error) {
-    console.error("Lỗi khi PUT user:", error);
+    console.error("❌ Lỗi khi PUT API:", error);
     res.status(500).json({ error: "Lỗi khi update API" });
   }
 });
@@ -68,7 +86,7 @@ app.get("*", (req, res) => {
 });
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
 
 
