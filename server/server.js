@@ -27,7 +27,7 @@ app.use(cors({
 app.use(express.json());
 
 // ===== Serve frontend từ thư mục public/dist =====
-app.use(express.static(path.join(__dirname, "../public"))); // Nên build frontend vào public/dist
+app.use(express.static(path.join(__dirname, ".."))); // Nên build frontend vào public/dist
 
 // ===== API Proxy (ẩn MockAPI) =====
 const API_BASE_URL = "https://6891f14a447ff4f11fbe7065.mockapi.io/users";
@@ -132,7 +132,7 @@ app.put("/api/users/:id", async (req, res) => {
 
 // ===== Serve index.html cho mọi route khác (SPA fallback) =====
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../public/index.html"));
+  res.sendFile(path.join(__dirname, ".."));
 });
 
 const PORT = process.env.PORT || 3000;
