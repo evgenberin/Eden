@@ -9,7 +9,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-app.use(cors());
+app.use(cors()); // Cho phép CORS tất cả domain
 app.use(express.json());
 
 // ===== Serve frontend =====
@@ -18,43 +18,49 @@ app.use(express.static(path.join(__dirname, ".."))); // phục vụ tất cả f
 // ===== API Proxy =====
 const API_BASE_URL = "https://6891f14a447ff4f11fbe7065.mockapi.io/users";
 
-// ✅ Middleware chặn truy cập không hợp lệ (allow localhost khi dev)
+// ✅ Middleware kiểm tra referer nhưng cho phép GitHub Pages
 app.use("/api", (req, res, next) => {
   const referer = req.headers.referer || "";
+  console.log("Request from referer:", referer);
+
+  // Danh sách domain được phép
+  const allowedDomains = [
+    "https://eden-teyz.onrender.com",
+    "http://localhost",
+    "https://evgenberin.github.io"
+  ];
+
+  // Nếu không có referer (một số trình duyệt bỏ) hoặc referer nằm trong domain cho phép
   if (
-    !referer.startsWith("https://eden-teyz.onrender.com") &&
-    !referer.startsWith("http://localhost") &&
-    !referer.startsWith("https://evgenberin.github.io")
+    referer === "" ||
+    allowedDomains.some(domain => referer.startsWith(domain))
   ) {
-    return res.status(403).json({ error: "Forbidden" });
+    return next();
   }
-  next();
+
+  return res.status(403).json({ error: "Forbidden" });
 });
 
-// ✅ GET users (trả dữ liệu đầy đủ cho frontend)
+// ✅ GET users (chỉ trả dữ liệu an toàn)
 app.get("/api/users", async (req, res) => {
   try {
     const response = await fetch(API_BASE_URL);
-    if (!response.ok) {
-      return res.status(response.status).json({ error: "API GET lỗi" });
-    }
-
     const users = await response.json();
 
-    // Giữ đủ field cần cho frontend
+    // Ẩn các field nhạy cảm
     const safeUsers = users.map(u => ({
       id: u.id,
-      name: u.name,
-      status: u.status,
-      sort: u.sort,
       bookingcode: u.bookingcode,
       linkqr: u.linkqr,
-      amount: u.amount
+      amount: u.amount,
+      name: u.name,
+      status: u.status,
+      sort: u.sort
     }));
 
     res.json(safeUsers);
   } catch (error) {
-    console.error("❌ Lỗi khi GET API:", error);
+    console.error("Lỗi khi GET users:", error);
     res.status(500).json({ error: "Lỗi khi gọi API" });
   }
 });
@@ -68,15 +74,10 @@ app.put("/api/users/:id", async (req, res) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(req.body),
     });
-
-    if (!response.ok) {
-      return res.status(response.status).json({ error: "API PUT lỗi" });
-    }
-
     const data = await response.json();
     res.json(data);
   } catch (error) {
-    console.error("❌ Lỗi khi PUT API:", error);
+    console.error("Lỗi khi PUT user:", error);
     res.status(500).json({ error: "Lỗi khi update API" });
   }
 });
@@ -88,6 +89,7 @@ app.get("*", (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
 
 
 
