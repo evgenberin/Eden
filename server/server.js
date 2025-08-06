@@ -132,7 +132,7 @@ app.put("/api/users/:id", async (req, res) => {
 
 // ===== Serve index.html cho mọi route khác (SPA fallback) =====
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, ".."));
+  res.sendFile(path.join(__dirname, "..", "index.html"));
 });
 
 const PORT = process.env.PORT || 3000;
