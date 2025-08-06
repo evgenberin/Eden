@@ -9,7 +9,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-app.use(cors()); // Cho phép CORS tất cả domain
+app.use(cors()); // Cho phép tất cả domain
 app.use(express.json());
 
 // ===== Serve frontend =====
@@ -18,36 +18,16 @@ app.use(express.static(path.join(__dirname, ".."))); // phục vụ tất cả f
 // ===== API Proxy =====
 const API_BASE_URL = "https://6891f14a447ff4f11fbe7065.mockapi.io/users";
 
-// ✅ Middleware kiểm tra referer nhưng cho phép GitHub Pages
-app.use("/api", (req, res, next) => {
-  const referer = req.headers.referer || "";
-  console.log("Request from referer:", referer);
+// ❌ BỎ check referer để tránh 403 khi fetch từ GitHub Pages
+// Nếu muốn check referer thì cần log ra để biết thực tế trình duyệt gửi gì
 
-  // Danh sách domain được phép
-  const allowedDomains = [
-    "https://eden-teyz.onrender.com",
-    "http://localhost",
-    "https://evgenberin.github.io"
-  ];
-
-  // Nếu không có referer (một số trình duyệt bỏ) hoặc referer nằm trong domain cho phép
-  if (
-    referer === "" ||
-    allowedDomains.some(domain => referer.startsWith(domain))
-  ) {
-    return next();
-  }
-
-  return res.status(403).json({ error: "Forbidden" });
-});
-
-// ✅ GET users (chỉ trả dữ liệu an toàn)
+// ✅ GET users
 app.get("/api/users", async (req, res) => {
   try {
     const response = await fetch(API_BASE_URL);
     const users = await response.json();
 
-    // Ẩn các field nhạy cảm
+    // Trả cả các field cần thiết để frontend không bị undefined
     const safeUsers = users.map(u => ({
       id: u.id,
       bookingcode: u.bookingcode,
@@ -88,7 +68,8 @@ app.get("*", (req, res) => {
 });
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
+
 
 
 
