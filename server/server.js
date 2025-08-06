@@ -1,4 +1,3 @@
-// server/server.js
 import express from "express";
 import fetch from "node-fetch";
 import cors from "cors";
@@ -18,19 +17,7 @@ app.use(express.static(path.join(__dirname, ".."))); // phục vụ tất cả f
 // ===== API Proxy =====
 const API_BASE_URL = "https://6891f14a447ff4f11fbe7065.mockapi.io/users";
 
-// ✅ Middleware chặn truy cập không hợp lệ (allow localhost khi dev)
-// app.use("/api", (req, res, next) => {
-//   const referer = req.headers.referer || "";
-//   if (
-//     !referer.startsWith("https://eden-batw.onrender.com/") &&
-//     !referer.startsWith("http://localhost")
-//   ) {
-//     return res.status(403).json({ error: "Forbidden" });
-//   }
-//   next();
-// });
-
-// ✅ GET users (trả dữ liệu đầy đủ cho frontend)
+// ✅ GET all users
 app.get("/api/users", async (req, res) => {
   try {
     const response = await fetch(API_BASE_URL);
@@ -55,6 +42,23 @@ app.get("/api/users", async (req, res) => {
   } catch (error) {
     console.error("❌ Lỗi khi GET API:", error);
     res.status(500).json({ error: "Lỗi khi gọi API" });
+  }
+});
+
+// ✅ GET single user by ID
+app.get("/api/users/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const response = await fetch(`${API_BASE_URL}/${id}`);
+    if (!response.ok) {
+      return res.status(response.status).json({ error: "API GET user lỗi" });
+    }
+
+    const user = await response.json();
+    res.json(user);
+  } catch (error) {
+    console.error("❌ Lỗi khi GET user API:", error);
+    res.status(500).json({ error: "Lỗi khi gọi API user" });
   }
 });
 
@@ -86,9 +90,4 @@ app.get("*", (req, res) => {
 });
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-
-
-
-
-
+app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
