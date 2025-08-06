@@ -23,7 +23,8 @@ app.use("/api", (req, res, next) => {
   const referer = req.headers.referer || "";
   if (
     !referer.startsWith("https://eden-teyz.onrender.com") &&
-    !referer.startsWith("http://localhost")
+    !referer.startsWith("http://localhost") &&
+    !referer.startsWith("https://evgenberin.github.io")
   ) {
     return res.status(403).json({ error: "Forbidden" });
   }
