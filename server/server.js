@@ -18,18 +18,35 @@ app.use(express.static(path.join(__dirname, ".."))); // phục vụ tất cả f
 // ===== API Proxy =====
 const API_BASE_URL = "https://6891f14a447ff4f11fbe7065.mockapi.io/users";
 
-// GET users
+// ✅ Middleware chặn truy cập không hợp lệ
+app.use("/api", (req, res, next) => {
+  const referer = req.headers.referer || "";
+  if (!referer.startsWith("https://eden-teyz.onrender.com")) {
+    return res.status(403).json({ error: "Forbidden" });
+  }
+  next();
+});
+
+// ✅ GET users (chỉ trả dữ liệu an toàn)
 app.get("/api/users", async (req, res) => {
   try {
     const response = await fetch(API_BASE_URL);
-    const data = await response.json();
-    res.json(data);
+    const users = await response.json();
+
+    // Ẩn các field nhạy cảm, chỉ trả về frontend phần cần hiển thị
+    const safeUsers = users.map(u => ({
+      bookingcode: u.bookingcode,
+      linkqr: u.linkqr,
+      amount: u.amount
+    }));
+
+    res.json(safeUsers);
   } catch (error) {
     res.status(500).json({ error: "Lỗi khi gọi API" });
   }
 });
 
-// PUT update user
+// ✅ PUT update user
 app.put("/api/users/:id", async (req, res) => {
   try {
     const { id } = req.params;
@@ -52,4 +69,5 @@ app.get("*", (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
 
