@@ -1,0 +1,227 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    html,
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    /* HEADER STYLES */
+    .hotel-header {
+        font-family: 'Arial', sans-serif;
+        background-color: #fff;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
+
+    .header-top {
+        background: linear-gradient(to right, #0d4273, #3269a8);
+        color: #fff;
+        font-size: 14px;
+        padding: 10px 0;
+        text-align: center;
+        position: relative;
+    }
+
+    .header-top .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+        padding: 0 15px;
+    }
+
+    .header-top span {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .header-top i {
+        color: #ffdd57;
+    }
+
+
+    .header-main {
+        padding: 15px 0;
+    }
+
+    .header-main .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: auto;
+        padding: 0 15px;
+        position: relative;
+    }
+
+    .logo {
+        font-weight: bold;
+        font-size: 22px;
+        text-transform: uppercase;
+        color: #0d4273;
+        text-decoration: none;
+    }
+
+    .nav-menu {
+        display: flex;
+        gap: 20px;
+    }
+
+    .nav-menu a {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        text-decoration: none;
+        color: #333;
+        font-weight: 500;
+        transition: color 0.3s;
+        font-size: 15px;
+    }
+
+    .nav-menu i {
+        font-size: 15px;
+        color: #0d4273;
+    }
+
+    .nav-menu a:hover {
+        color: #008234;
+    }
+
+    .menu-toggle {
+        display: none;
+        background: none;
+        border: none;
+        font-size: 22px;
+        color: #0d4273;
+        cursor: pointer;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+        .nav-menu {
+            display: none;
+            flex-direction: column;
+            background: #ffffff;
+            position: absolute;
+            top: 100%;
+            right: 15px;
+            width: 240px;
+            border-radius: 8px;
+            padding: 10px 0;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            animation: fadeInMenu 0.3s ease-out;
+            overflow: hidden;
+            z-index: 1001;
+        }
+
+        .nav-menu.show {
+            display: flex;
+        }
+
+        .nav-menu a {
+            padding: 12px 20px;
+            color: #333;
+            font-weight: 500;
+            font-size: 16px;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .nav-menu a:hover {
+            background-color: #f0f3f5;
+            color: #0d4273;
+        }
+
+        .menu-toggle {
+            display: block;
+        }
+    }
+
+    @keyframes fadeInMenu {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .marquee {
+        overflow: hidden;
+        white-space: nowrap;
+        width: 100%;
+        position: relative;
+    }
+
+    .marquee-content {
+        display: inline-block;
+        padding-left: 100%;
+        animation: marquee-slide 20s linear infinite;
+    }
+
+    .marquee-content span {
+        display: inline-block;
+    }
+
+    @keyframes marquee-slide {
+        0% {
+            transform: translateX(0%);
+        }
+
+        100% {
+            transform: translateX(-100%);
+        }
+    }
+</style>
+
+
+
+
+<!-- HEADER -->
+<header class="hotel-header">
+    <div class="header-top">
+        <div class="container">
+            <div class="marquee">
+                <div class="marquee-content" id="marquee-text">
+                    <i class="fas fa-bell"></i>
+                    <span>Hệ thống đặt phòng trực tuyến hoạt động 24/7 – Liên hệ nếu cần hỗ trợ !</span>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+
+    <div class="header-main">
+        <div class="container">
+            <a href="/" class="logo">Khách Sạn Eden Plaza</a>
+            <nav class="nav-menu" id="navMenu">
+                <a href="/"><i class="fas fa-home"></i> Trang chủ</a>
+                <a href="register.html"><i class="fas fa-user-plus"></i> Đăng kí</a>
+                <a href="login.html"><i class="fas fa-sign-in-alt"></i> Đăng nhập</a>
+                <a href="membership.html"><i class="fas fa-gift"></i> Ưu đãi hội viên</a>
+                <a href="checkin-policy.html"><i class="fas fa-door-open"></i> Quy định nhận phòng</a>
+                <a href="refund-policy.html"><i class="fas fa-undo"></i> Chính sách huỷ phòng</a>
+                <a href="privacy-policy.html"><i class="fas fa-user-shield"></i> Chính sách bảo mật</a>
+                <a href="contact.html"><i class="fas fa-phone"></i> Liên hệ</a>
+            </nav>
+
+            <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+        </div>
+    </div>
+</header>

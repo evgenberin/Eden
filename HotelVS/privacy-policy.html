@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="img/favicon.png">
+    <title>Chính sách bảo mật</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .content {
+            max-width: 960px;
+            margin: 60px auto;
+            padding: 24px;
+        }
+
+        h1 {
+            font-size: 28px;
+            color: #0d4273;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 20px;
+            margin-top: 30px;
+            color: #244b8a;
+        }
+
+        h3 {
+            font-size: 17px;
+            margin-top: 20px;
+            color: #1e40af;
+        }
+
+        p,
+        li {
+            font-size: 16px;
+            margin-top: 8px;
+            text-align: justify;
+        }
+
+        ul {
+            padding-left: 20px;
+            margin-top: 10px;
+        }
+
+        .lock-icon {
+            font-size: 20px;
+            margin-right: 6px;
+            color: #10b981;
+        }
+
+        @media (max-width: 600px) {
+            .content {
+                margin: 30px 15px;
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 22px;
+            }
+
+            h2 {
+                font-size: 18px;
+            }
+
+            p,
+            li {
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div id="preloader-container"></div>
+    <script>
+        fetch('preloader.html')
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('preloader-container').innerHTML = html;
+                // Chờ 1–2 giây rồi mới hiển thị nội dung chính
+                setTimeout(() => {
+                    document.getElementById('main-content').style.display = 'block';
+                }, 1000); // hoặc lâu hơn tùy animation
+            });
+    </script>
+    <script src="preloader.js"></script>
+    <!-- End Preloader -->
+
+    <div id="main-content" style="display: none;">
+        <!-- Gắn header HTML -->
+        <div id="header-container"></div>
+
+        <!-- Nội dung chính sách -->
+        <div class="content">
+            <h1>Chính sách Bảo mật Thông tin Cá nhân</h1>
+
+            <h2>1. Mục đích thu thập thông tin cá nhân</h2>
+
+            <h3>1.1. Xác thực và xử lý đặt phòng</h3>
+            <p>Chúng tôi thu thập họ tên, số điện thoại, email, địa chỉ và các thông tin liên quan để xác minh danh
+                tính,
+                liên hệ xác nhận và hỗ trợ khách hàng trong quá trình đặt phòng.</p>
+
+            <h3>1.2. Cải thiện trải nghiệm dịch vụ</h3>
+            <p>Thông tin được sử dụng để hỗ trợ tốt hơn, tư vấn chính xác và tối ưu trải nghiệm sử dụng dịch vụ lưu trú
+                của
+                khách hàng.</p>
+
+            <h3>1.3. Cá nhân hóa nội dung</h3>
+            <p>Dựa trên hành vi và lịch sử đặt phòng, chúng tôi có thể hiển thị ưu đãi hoặc gợi ý dịch vụ phù hợp hơn
+                với
+                từng khách hàng.</p>
+
+            <h2>2. Phạm vi sử dụng thông tin</h2>
+            <ul>
+                <li>Đảm bảo việc cung cấp dịch vụ lưu trú, xác nhận đặt phòng, chăm sóc khách hàng.</li>
+                <li>Gửi thông báo về đơn đặt phòng, ưu đãi và cập nhật chính sách.</li>
+                <li>Không chia sẻ thông tin cho bên thứ ba nếu không có sự đồng ý, trừ khi:
+                    <ul>
+                        <li>Yêu cầu từ cơ quan pháp luật.</li>
+                        <li>Cần thiết để bảo vệ quyền lợi, tài sản hoặc an toàn cho khách hàng hoặc chúng tôi.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h2>3. Đối tượng được tiếp cận thông tin</h2>
+
+            <h3>3.1. Đối tác hỗ trợ dịch vụ</h3>
+            <p>Các đơn vị kỹ thuật, trung gian thanh toán hoặc nhà cung cấp dịch vụ cần thiết để xử lý yêu cầu khách
+                hàng.
+                Các bên này bắt buộc phải tuân thủ chính sách bảo mật.</p>
+
+            <h3>3.2. Cơ quan chức năng có thẩm quyền</h3>
+            <p>Thông tin có thể được cung cấp theo yêu cầu hợp pháp của các cơ quan nhà nước có thẩm quyền.</p>
+
+            <h2>4. Thời gian lưu trữ thông tin</h2>
+            <p>Chúng tôi lưu trữ thông tin cá nhân trong thời gian khách hàng có tương tác với dịch vụ và sẽ xóa khi:
+            </p>
+            <ul>
+                <li>Mục đích thu thập đã hoàn tất.</li>
+                <li>Khách hàng có yêu cầu xóa thông tin hợp lệ.</li>
+            </ul>
+            <p>Dữ liệu sẽ được xóa hoặc ẩn danh theo tiêu chuẩn bảo mật và quy định nội bộ.</p>
+
+            <h2><i class="lock-icon">🔒</i>Cam kết bảo mật</h2>
+            <p>Chúng tôi áp dụng các biện pháp kỹ thuật, quản lý và an ninh để bảo vệ thông tin cá nhân khỏi mất mát,
+                truy
+                cập trái phép hoặc lạm dụng.</p>
+        </div>
+        <div id="footer-container"></div>
+    </div>
+
+    <!-- Lucide icon script -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+
+    <!-- Gắn header và footer HTML -->
+    <script src="header.js"></script>
+    <script>
+        // Load header và gọi initHeader
+        fetch('header.html')
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('header-container').innerHTML = html;
+                if (typeof initHeader === 'function') initHeader(); // Chắc chắn hàm tồn tại
+            });
+
+        // Load footer
+        fetch('footer.html')
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('footer-container').innerHTML = html;
+            });
+    </script>
+    <!-- End Gắn header và footer HTML -->
+
+</body>
+
+</html>

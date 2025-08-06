@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="img/favicon.png">
+    <title>Chính sách huỷ phòng</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .content {
+            max-width: 960px;
+            margin: 60px auto;
+            padding: 20px;
+        }
+
+        .content h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #0d4273;
+        }
+
+        .content h2 {
+            margin-top: 30px;
+            font-size: 22px;
+            color: #244b8a;
+        }
+
+        .content p {
+            margin-top: 10px;
+            text-align: justify;
+        }
+
+        ul {
+            margin-top: 10px;
+            padding-left: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .content {
+                margin: 30px 15px;
+                padding: 15px;
+            }
+
+            .content h1 {
+                font-size: 24px;
+            }
+
+            .content h2 {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div id="preloader-container"></div>
+    <script>
+        fetch('preloader.html')
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('preloader-container').innerHTML = html;
+                // Chờ 1–2 giây rồi mới hiển thị nội dung chính
+                setTimeout(() => {
+                    document.getElementById('main-content').style.display = 'block';
+                }, 1000); // hoặc lâu hơn tùy animation
+            });
+    </script>
+    <script src="preloader.js"></script>
+    <!-- End Preloader -->
+
+    <div id="main-content" style="display: none;">
+        <!-- Gắn header HTML -->
+        <div id="header-container"></div>
+
+        <!-- Nội dung chính -->
+        <div class="content">
+            <h1>Chính sách đổi, trả phòng và hoàn tiền</h1>
+
+            <p>Nếu Quý khách có nhu cầu đổi ngày nhận/trả phòng, thay đổi hạng phòng hoặc hủy đặt phòng, vui lòng liên
+                hệ bộ
+                phận hỗ trợ qua thông tin trên website để được hỗ trợ.</p>
+
+            <h2>1. Chính sách đổi hạng phòng</h2>
+            <p>- Nếu Quý khách muốn nâng cấp sang hạng phòng cao hơn, vui lòng thanh toán phần chênh lệch giá tại thời
+                điểm
+                thay đổi.</p>
+            <p>- Nếu Quý khách đổi xuống hạng phòng thấp hơn, phần chênh lệch sẽ không được hoàn lại.</p>
+
+            <h2>2. Chính sách đổi ngày nhận phòng</h2>
+            <p>- Yêu cầu gửi trước <strong>3 ngày</strong> sẽ được hỗ trợ thay đổi, tùy theo tình trạng phòng.</p>
+            <p>- Yêu cầu trong vòng <strong>3 ngày</strong> sẽ không được hỗ trợ, giữ nguyên thông tin đặt phòng ban
+                đầu.
+            </p>
+
+            <h2>3. Chính sách hủy phòng và hoàn tiền</h2>
+            <ul>
+                <li>Hủy <strong>trước 1 ngày</strong> so với ngày nhận phòng: <strong>hoàn 100% số tiền đã thanh
+                        toán</strong>.</li>
+                <li>Hủy <strong>trong 24 giờ</strong> trước ngày nhận phòng: <strong>không hoàn tiền</strong>.</li>
+                <li>Không đến nhận phòng (no-show): xem như hủy phòng, <strong>không hoàn tiền</strong>.</li>
+                <li>Đặt phòng trong dịp <strong>Lễ/Tết</strong> (theo quy định Nhà nước): <strong>không hoàn
+                        tiền</strong>
+                    nếu hủy.</li>
+            </ul>
+
+            <p>Sau khi tiếp nhận yêu cầu hủy, chúng tôi sẽ gửi thông báo chi tiết về dịch vụ và số tiền hoàn lại (nếu
+                có).
+                Tiền hoàn sẽ được chuyển khoản đến tài khoản Quý khách cung cấp trong vòng <strong>15–30 ngày làm
+                    việc</strong> và <strong>không mất phí</strong>.</p>
+
+            <p>Xin cảm ơn Quý khách đã tin tưởng sử dụng dịch vụ của chúng tôi.</p>
+        </div>
+        <div id="footer-container"></div>
+    </div>
+
+    <!-- Lucide icon script -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+
+    <!-- Gắn header và footer HTML -->
+    <script src="header.js"></script>
+    <script>
+        // Load header và gọi initHeader
+        fetch('header.html')
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('header-container').innerHTML = html;
+                if (typeof initHeader === 'function') initHeader(); // Chắc chắn hàm tồn tại
+            });
+
+        // Load footer
+        fetch('footer.html')
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('footer-container').innerHTML = html;
+            });
+    </script>
+    <!-- End Gắn header và footer HTML -->
+
+
+</body>
+
+</html>

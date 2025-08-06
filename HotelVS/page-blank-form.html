@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="img/favicon.png">
+    <title>Liên hệ</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div id="preloader-container"></div>
+    <script>
+        fetch('preloader.html')
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('preloader-container').innerHTML = html;
+                // Chờ 1–2 giây rồi mới hiển thị nội dung chính
+                setTimeout(() => {
+                    document.getElementById('main-content').style.display = 'block';
+                }, 1000); // hoặc lâu hơn tùy animation
+            });
+    </script>
+    <script src="preloader.js"></script>
+    <!-- End Preloader -->
+
+    <div id="main-content" style="display: none;">
+        <!-- Gắn header HTML -->
+        <div id="header-container"></div>
+
+        <div id="footer-container"></div>
+
+    </div>
+
+    <!-- Lucide icon script -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+
+    <!-- Gắn header và footer HTML -->
+    <script src="header.js"></script>
+    <script>
+        // Load header và gọi initHeader
+        fetch('header.html')
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('header-container').innerHTML = html;
+                if (typeof initHeader === 'function') initHeader(); // Chắc chắn hàm tồn tại
+            });
+
+        // Load footer
+        fetch('footer.html')
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('footer-container').innerHTML = html;
+            });
+    </script>
+    <!-- End Gắn header và footer HTML -->
+
+</body>
+
+</html>

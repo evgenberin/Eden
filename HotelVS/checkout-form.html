@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="img/favicon.png">
+    <title>Thông tin của bạn</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .custom-checkout-wrapper * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        .custom-checkout-wrapper {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif !important;
+            background-color: #f3f4f6;
+            color: #1f2937;
+            padding: 1rem;
+        }
+
+        .custom-checkout-wrapper .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        .custom-checkout-wrapper .checkout-grid {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .custom-checkout-wrapper .main-content {
+            order: 2;
+        }
+
+        .custom-checkout-wrapper .sidebar {
+            order: 1;
+        }
+
+        @media (min-width: 1024px) {
+            .custom-checkout-wrapper .checkout-grid {
+                flex-direction: row;
+                gap: 2rem;
+            }
+
+            .custom-checkout-wrapper .main-content {
+                order: 1;
+            }
+
+            .custom-checkout-wrapper .sidebar {
+                order: 2;
+            }
+        }
+
+        .custom-checkout-wrapper .card {
+            background-color: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .custom-checkout-wrapper .sidebar .card {
+            padding: 1rem;
+        }
+
+        .custom-checkout-wrapper .progress-stepper {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .custom-checkout-wrapper .step {
+            display: flex;
+            align-items: center;
+        }
+
+        .custom-checkout-wrapper .step-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 9999px;
+            font-weight: 700;
+        }
+
+        .custom-checkout-wrapper .step-label {
+            margin-left: 0.5rem;
+            font-weight: 600;
+        }
+
+        .custom-checkout-wrapper .step.active .step-number {
+            background-color: #2563eb;
+            color: #ffffff;
+        }
+
+        .custom-checkout-wrapper .step.active .step-label {
+            color: #2563eb;
+        }
+
+        .custom-checkout-wrapper .step.inactive .step-number {
+            border: 2px solid #9ca3af;
+        }
+
+        .custom-checkout-wrapper .step.inactive .step-label {
+            color: #6b7280;
+        }
+
+        .custom-checkout-wrapper .stepper-divider {
+            flex-grow: 1;
+            height: 1px;
+            background-color: #d1d5db;
+            margin: 0 1rem;
+        }
+
+        .custom-checkout-wrapper .info-banner {
+            display: flex;
+            align-items: flex-start;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid;
+            margin-bottom: 1.5rem;
+        }
+
+        .custom-checkout-wrapper .info-banner-blue {
+            background-color: #eff6ff;
+            border-color: #bfdbfe;
+        }
+
+        .custom-checkout-wrapper .info-banner-green {
+            background-color: #f0fdf4;
+            border-color: #bbf7d0;
+        }
+
+        .custom-checkout-wrapper .info-banner .icon {
+            width: 1.5rem;
+            height: 1.5rem;
+            margin-right: 0.75rem;
+            margin-top: 0.25rem;
+            flex-shrink: 0;
+        }
+
+        .custom-checkout-wrapper .info-banner-blue .icon {
+            color: #2563eb;
+        }
+
+        .custom-checkout-wrapper .info-banner-green .icon {
+            color: #16a34a;
+        }
+
+        .custom-checkout-wrapper .info-banner h3 {
+            font-weight: 700;
+            color: #1f2937;
+        }
+
+        .custom-checkout-wrapper .info-banner p {
+            font-size: 0.875rem;
+            color: #374151;
+        }
+
+        .custom-checkout-wrapper .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .custom-checkout-wrapper .form-group label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 0.25rem;
+        }
+
+        .custom-checkout-wrapper .form-group .input-wrapper {
+            position: relative;
+        }
+
+        .custom-checkout-wrapper .form-group .icon {
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1.25rem;
+            height: 1.25rem;
+            color: #9ca3af;
+        }
+
+        .custom-checkout-wrapper .form-group input,
+        .custom-checkout-wrapper .form-group select,
+        .custom-checkout-wrapper .form-group textarea {
+            width: 100%;
+            padding: 0.75rem 0.5rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.375rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .custom-checkout-wrapper .form-group input:focus,
+        .custom-checkout-wrapper .form-group select:focus,
+        .custom-checkout-wrapper .form-group textarea:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 1px #2563eb;
+        }
+
+        .custom-checkout-wrapper .form-group input.has-icon {
+            padding-left: 2.5rem;
+        }
+
+        .custom-checkout-wrapper .form-group .input-hint {
+            font-size: 0.75rem;
+            color: #6b7280;
+            margin-top: 0.25rem;
+        }
+
+        .custom-checkout-wrapper .form-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0;
+            /* Không có gap trên mobile */
+        }
+
+        @media (min-width: 768px) {
+            .custom-checkout-wrapper .form-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 1rem;
+                /* Có gap trên tablet trở lên */
+            }
+        }
+
+        .custom-checkout-wrapper .radio-group label {
+            display: flex;
+            align-items: center;
+            font-weight: normal;
+            margin-bottom: 0.5rem;
+        }
+
+        .custom-checkout-wrapper .radio-group input {
+            width: auto;
+            margin-right: 0.5rem;
+            height: 1rem;
+            width: 1rem;
+        }
+
+        .custom-checkout-wrapper .select-wrapper {
+            position: relative;
+        }
+
+        .custom-checkout-wrapper .select-wrapper select {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+
+        .custom-checkout-wrapper .select-wrapper .icon {
+            position: absolute;
+            right: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+        }
+
+        .custom-checkout-wrapper .arrival-info-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .custom-checkout-wrapper .arrival-info-item .icon {
+            width: 1.5rem;
+            height: 1.5rem;
+            color: #16a34a;
+            margin-right: 0.75rem;
+            margin-top: 0.125rem;
+            flex-shrink: 0;
+        }
+
+        .custom-checkout-wrapper .arrival-info-item p {
+            font-size: 0.875rem;
+            color: #374151;
+            line-height: 1.5;
+        }
+
+        .custom-checkout-wrapper .amenities-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        @media (min-width: 640px) {
+            .custom-checkout-wrapper .amenities-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .custom-checkout-wrapper .amenity-item {
+            display: flex;
+            align-items: center;
+            font-size: 0.75rem;
+            color: #374151;
+        }
+
+        .custom-checkout-wrapper .amenity-item .icon {
+            width: 1rem;
+            height: 1rem;
+            color: #6b7280;
+            margin-right: 0.5rem;
+            flex-shrink: 0;
+        }
+
+        .custom-checkout-wrapper .text-2xl {
+            font-size: 1.5rem;
+            line-height: 2rem;
+        }
+
+        .custom-checkout-wrapper .text-xl {
+            font-size: 1.25rem;
+            line-height: 1.75rem;
+        }
+
+        .custom-checkout-wrapper .text-lg {
+            font-size: 1.125rem;
+            line-height: 1.75rem;
+        }
+
+        .custom-checkout-wrapper .text-sm {
+            font-size: 0.875rem;
+            line-height: 1.25rem;
+        }
+
+        .custom-checkout-wrapper .text-xs {
+            font-size: 0.75rem;
+            line-height: 1rem;
+        }
+
+        .custom-checkout-wrapper .font-bold {
+            font-weight: 700;
+        }
+
+        .custom-checkout-wrapper .font-semibold {
+            font-weight: 600;
+        }
+
+        .custom-checkout-wrapper .mb-4 {
+            margin-bottom: 1rem;
+        }
+
+        .custom-checkout-wrapper .mb-2 {
+            margin-bottom: 0.5rem;
+        }
+
+        .custom-checkout-wrapper .mt-1 {
+            margin-top: 0.25rem;
+        }
+
+        .custom-checkout-wrapper .mt-2 {
+            margin-top: 0.5rem;
+        }
+
+        .custom-checkout-wrapper .mt-4 {
+            margin-top: 1rem;
+        }
+
+        .custom-checkout-wrapper .pt-4 {
+            padding-top: 1rem;
+        }
+
+        .custom-checkout-wrapper .flex {
+            display: flex;
+        }
+
+        .custom-checkout-wrapper .items-center {
+            align-items: center;
+        }
+
+        .custom-checkout-wrapper .items-start {
+            align-items: flex-start;
+        }
+
+        .custom-checkout-wrapper .justify-between {
+            justify-content: space-between;
+        }
+
+        .custom-checkout-wrapper .justify-end {
+            justify-content: flex-end;
+        }
+
+        .custom-checkout-wrapper .space-x-4>*+* {
+            margin-left: 1rem;
+        }
+
+        .custom-checkout-wrapper .list-disc {
+            list-style-type: disc;
+        }
+
+        .custom-checkout-wrapper .list-inside {
+            list-style-position: inside;
+        }
+
+        .custom-checkout-wrapper .space-y-2>*+* {
+            margin-top: 0.5rem;
+        }
+
+        .custom-checkout-wrapper .border-t {
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .custom-checkout-wrapper .btn {
+            font-weight: 700;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.375rem;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .custom-checkout-wrapper .btn-primary {
+            background-color: #2563eb;
+            color: #ffffff;
+        }
+
+        .custom-checkout-wrapper .btn-primary:hover {
+            background-color: #1d4ed8;
+        }
+
+        .custom-checkout-wrapper .hotel-details-card img {
+            width: 6rem;
+            height: 6rem;
+            object-fit: cover;
+            border-radius: 0.375rem;
+        }
+
+        .custom-checkout-wrapper .hotel-details-card .map-thumb iframe {
+            width: 6rem;
+            height: 6rem;
+            border-radius: 0.375rem;
+            border: none;
+        }
+
+        .custom-checkout-wrapper .star-rating {
+            display: flex;
+        }
+
+        .custom-checkout-wrapper .star-rating .icon {
+            width: 1rem;
+            height: 1rem;
+            color: #f59e0b;
+            fill: #f59e0b;
+        }
+
+        .custom-checkout-wrapper .review-score {
+            background-color: #2563eb;
+            color: white;
+            font-weight: 700;
+            font-size: 1.125rem;
+            border-radius: 0.375rem;
+            padding: 0.25rem 0.75rem;
+        }
+
+        .custom-checkout-wrapper .text-green-600 {
+            color: #16a34a;
+        }
+
+        .custom-checkout-wrapper .text-green-700 {
+            color: #15803d;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div id="preloader-container"></div>
+    <script>
+        fetch('preloader.html')
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('preloader-container').innerHTML = html;
+                // Chờ 1–2 giây rồi mới hiển thị nội dung chính
+                setTimeout(() => {
+                    document.getElementById('main-content').style.display = 'block';
+                }, 1000); // hoặc lâu hơn tùy animation
+            });
+    </script>
+    <script src="preloader.js"></script>
+    <!-- End Preloader -->
+
+    <div id="main-content" style="display: none;">
+        <!-- Gắn header HTML -->
+        <div id="header-container"></div>
+
+        <div class="custom-checkout-wrapper">
+            <div class="container">
+                <!-- Progress Stepper -->
+                <div class="progress-stepper">
+                    <div class="step active">
+                        <span class="step-number">1</span>
+                        <span class="step-label">Thông tin</span>
+                    </div>
+                    <div class="stepper-divider"></div>
+                    <div class="step inactive">
+                        <span class="step-number">2</span>
+                        <span class="step-label">Hoàn tất</span>
+                    </div>
+                </div>
+
+                <!-- Info banners -->
+                <div class="info-banner info-banner-blue">
+                    <i data-lucide="lightbulb" class="icon"></i>
+                    <div>
+                        <h3>Thông tin hữu ích !</h3>
+                        <p>Số lượng phòng có hạn – hãy đặt ngay để tránh bị lỡ nhé!</p>
+                    </div>
+                </div>
+                <div class="info-banner info-banner-green">
+                    <i data-lucide="lock" class="icon"></i>
+                    <div>
+                        <h3>Kết nối của bạn được bảo mật</h3>
+                        <p>Chúng tôi sử dụng kết nối an toàn và lưu trữ mã hóa để bảo vệ dữ liệu cá nhân của bạn.</p>
+                    </div>
+                </div>
+
+                <div class="checkout-grid">
+                    <!-- Left Column -->
+                    <div class="main-content">
+                        <!-- Booking Details (moved from sidebar) -->
+                        <div class="card">
+                            <h3 class="font-bold mb-2">Chi tiết đặt phòng của bạn</h3>
+                            <div class="flex justify-between">
+                                <div>
+                                    <p class="text-sm font-semibold">Nhận phòng</p>
+                                    <p class="text-sm font-bold" id="checkin">T6, 27 tháng 7 2025</p>
+                                    <p class="text-xs" style="color: #6b7280;">14:00 – 23:00</p>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-semibold">Trả phòng</p>
+                                    <p class="text-sm font-bold" id="checkout">T7, 28 tháng 7 2025</p>
+                                    <p class="text-xs" style="color: #6b7280;">06:00 – 12:00</p>
+                                </div>
+                            </div>
+                            <p class="text-sm mt-2">Tổng thời gian lưu trú:</p>
+                            <p class="text-sm font-bold" id="number-date">2 đêm</p>
+                            <div class="pt-4 mt-4 border-t">
+                                <p class="text-sm">Bạn đã chọn:</p>
+                                <p class="text-sm font-bold" id="room-name">Deluxe Double Room x 1</p>
+                                <!--
+                            <div class="flex items-center text-sm mt-1" style="color: #4b5563;">
+                                <i data-lucide="users" style="width: 1rem; height: 1rem; margin-right: 0.5rem;"></i>
+                                <span>2 người lớn</span>
+                            </div>
+                            -->
+                            </div>
+                        </div>
+
+                        <!-- Price Summary -->
+                        <div class="card">
+                            <h3 class="font-bold mb-2">Tóm tắt giá</h3>
+                            <div class="flex justify-between items-center">
+                                <span>Tổng cộng</span>
+                                <span class="font-bold text-xl" id="price-total">VND 10,010,112</span>
+                            </div>
+                            <p class="text-xs" style="color: #6b7280; text-align: right;">Đã bao gồm thuế và phí</p>
+                        </div>
+
+
+                        <!-- Your Details Form -->
+                        <div class="card">
+                            <h2 class="text-2xl font-bold mb-4">Thông tin của bạn</h2>
+                            <form>
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label for="first-name">Họ</label>
+                                        <div class="input-wrapper">
+                                            <i data-lucide="user" class="icon"></i>
+                                            <input type="text" id="first-name" class="has-icon">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="last-name">Tên</label>
+                                        <div class="input-wrapper">
+                                            <i data-lucide="user" class="icon"></i>
+                                            <input type="text" id="last-name" class="has-icon">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Địa chỉ Email</label>
+                                    <div class="input-wrapper">
+                                        <i data-lucide="mail" class="icon"></i>
+                                        <input type="email" id="email" class="has-icon">
+                                    </div>
+                                    <p class="input-hint">Email xác nhận đặt phòng sẽ được gửi đến địa chỉ này</p>
+                                </div>
+
+                                <div class="form-group" style="padding-top: 1rem;">
+                                    <label style="font-weight: 700; font-size: 1rem; margin-bottom: 0.5rem;">Bạn đặt
+                                        phòng
+                                        cho ai?</label>
+                                    <div class="radio-group">
+                                        <label>
+                                            <input type="radio" name="bookingFor" value="myself" checked>
+                                            <span>Tôi là khách lưu trú chính</span>
+                                        </label>
+                                        <label>
+                                            <input type="radio" name="bookingFor" value="someone_else">
+                                            <span>Đặt phòng này là cho người khác</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="country">Vùng/quốc gia</label>
+                                    <div class="select-wrapper">
+                                        <select id="country" name="country">
+                                            <option value="AF">Afghanistan</option>
+                                            <option value="AL">Albania</option>
+                                            <option value="DZ">Algeria</option>
+                                            <option value="AS">American Samoa</option>
+                                            <option value="AD">Andorra</option>
+                                            <option value="AO">Angola</option>
+                                            <option value="AI">Anguilla</option>
+                                            <option value="AQ">Antarctica</option>
+                                            <option value="AG">Antigua and Barbuda</option>
+                                            <option value="AR">Argentina</option>
+                                            <option value="AM">Armenia</option>
+                                            <option value="AW">Aruba</option>
+                                            <option value="AU">Australia</option>
+                                            <option value="AT">Austria</option>
+                                            <option value="AZ">Azerbaijan</option>
+                                            <option value="BS">Bahamas</option>
+                                            <option value="BH">Bahrain</option>
+                                            <option value="BD">Bangladesh</option>
+                                            <option value="BB">Barbados</option>
+                                            <option value="BY">Belarus</option>
+                                            <option value="BE">Belgium</option>
+                                            <option value="BZ">Belize</option>
+                                            <option value="BJ">Benin</option>
+                                            <option value="BM">Bermuda</option>
+                                            <option value="BT">Bhutan</option>
+                                            <option value="BO">Bolivia</option>
+                                            <option value="BA">Bosnia and Herzegovina</option>
+                                            <option value="BW">Botswana</option>
+                                            <option value="BR">Brazil</option>
+                                            <option value="IO">British Indian Ocean Territory</option>
+                                            <option value="BN">Brunei Darussalam</option>
+                                            <option value="BG">Bulgaria</option>
+                                            <option value="BF">Burkina Faso</option>
+                                            <option value="BI">Burundi</option>
+                                            <option value="KH">Cambodia</option>
+                                            <option value="CM">Cameroon</option>
+                                            <option value="CA">Canada</option>
+                                            <option value="CV">Cape Verde</option>
+                                            <option value="KY">Cayman Islands</option>
+                                            <option value="CF">Central African Republic</option>
+                                            <option value="TD">Chad</option>
+                                            <option value="CL">Chile</option>
+                                            <option value="CN">China</option>
+                                            <option value="CX">Christmas Island</option>
+                                            <option value="CC">Cocos (Keeling) Islands</option>
+                                            <option value="CO">Colombia</option>
+                                            <option value="KM">Comoros</option>
+                                            <option value="CG">Congo</option>
+                                            <option value="CD">Congo, The Democratic Republic of the</option>
+                                            <option value="CK">Cook Islands</option>
+                                            <option value="CR">Costa Rica</option>
+                                            <option value="CI">Côte d'Ivoire</option>
+                                            <option value="HR">Croatia</option>
+                                            <option value="CU">Cuba</option>
+                                            <option value="CY">Cyprus</option>
+                                            <option value="CZ">Czech Republic</option>
+                                            <option value="DK">Denmark</option>
+                                            <option value="DJ">Djibouti</option>
+                                            <option value="DM">Dominica</option>
+                                            <option value="DO">Dominican Republic</option>
+                                            <option value="EC">Ecuador</option>
+                                            <option value="EG">Egypt</option>
+                                            <option value="SV">El Salvador</option>
+                                            <option value="GQ">Equatorial Guinea</option>
+                                            <option value="ER">Eritrea</option>
+                                            <option value="EE">Estonia</option>
+                                            <option value="ET">Ethiopia</option>
+                                            <option value="FK">Falkland Islands (Malvinas)</option>
+                                            <option value="FO">Faroe Islands</option>
+                                            <option value="FJ">Fiji</option>
+                                            <option value="FI">Finland</option>
+                                            <option value="FR">France</option>
+                                            <option value="GF">French Guiana</option>
+                                            <option value="PF">French Polynesia</option>
+                                            <option value="TF">French Southern Territories</option>
+                                            <option value="GA">Gabon</option>
+                                            <option value="GM">Gambia</option>
+                                            <option value="GE">Georgia</option>
+                                            <option value="DE">Germany</option>
+                                            <option value="GH">Ghana</option>
+                                            <option value="GI">Gibraltar</option>
+                                            <option value="GR">Greece</option>
+                                            <option value="GL">Greenland</option>
+                                            <option value="GD">Grenada</option>
+                                            <option value="GP">Guadeloupe</option>
+                                            <option value="GU">Guam</option>
+                                            <option value="GT">Guatemala</option>
+                                            <option value="GG">Guernsey</option>
+                                            <option value="GN">Guinea</option>
+                                            <option value="GW">Guinea-Bissau</option>
+                                            <option value="GY">Guyana</option>
+                                            <option value="HT">Haiti</option>
+                                            <option value="HN">Honduras</option>
+                                            <option value="HK">Hong Kong</option>
+                                            <option value="HU">Hungary</option>
+                                            <option value="IS">Iceland</option>
+                                            <option value="IN">India</option>
+                                            <option value="ID">Indonesia</option>
+                                            <option value="IR">Iran (Islamic Republic of)</option>
+                                            <option value="IQ">Iraq</option>
+                                            <option value="IE">Ireland</option>
+                                            <option value="IM">Isle of Man</option>
+                                            <option value="IL">Israel</option>
+                                            <option value="IT">Italy</option>
+                                            <option value="JM">Jamaica</option>
+                                            <option value="JP">Japan</option>
+                                            <option value="JE">Jersey</option>
+                                            <option value="JO">Jordan</option>
+                                            <option value="KZ">Kazakhstan</option>
+                                            <option value="KE">Kenya</option>
+                                            <option value="KI">Kiribati</option>
+                                            <option value="KP">Korea (Democratic People's Republic of)</option>
+                                            <option value="KR">Korea, Republic of</option>
+                                            <option value="KW">Kuwait</option>
+                                            <option value="KG">Kyrgyzstan</option>
+                                            <option value="LA">Lao People's Democratic Republic</option>
+                                            <option value="LV">Latvia</option>
+                                            <option value="LB">Lebanon</option>
+                                            <option value="LS">Lesotho</option>
+                                            <option value="LR">Liberia</option>
+                                            <option value="LY">Libya</option>
+                                            <option value="LI">Liechtenstein</option>
+                                            <option value="LT">Lithuania</option>
+                                            <option value="LU">Luxembourg</option>
+                                            <option value="MO">Macao</option>
+                                            <option value="MK">North Macedonia</option>
+                                            <option value="MG">Madagascar</option>
+                                            <option value="MW">Malawi</option>
+                                            <option value="MY">Malaysia</option>
+                                            <option value="MV">Maldives</option>
+                                            <option value="ML">Mali</option>
+                                            <option value="MT">Malta</option>
+                                            <option value="MH">Marshall Islands</option>
+                                            <option value="MQ">Martinique</option>
+                                            <option value="MR">Mauritania</option>
+                                            <option value="MU">Mauritius</option>
+                                            <option value="YT">Mayotte</option>
+                                            <option value="MX">Mexico</option>
+                                            <option value="FM">Micronesia (Federated States of)</option>
+                                            <option value="MD">Moldova, Republic of</option>
+                                            <option value="MC">Monaco</option>
+                                            <option value="MN">Mongolia</option>
+                                            <option value="ME">Montenegro</option>
+                                            <option value="MS">Montserrat</option>
+                                            <option value="MA">Morocco</option>
+                                            <option value="MZ">Mozambique</option>
+                                            <option value="MM">Myanmar</option>
+                                            <option value="NA">Namibia</option>
+                                            <option value="NR">Nauru</option>
+                                            <option value="NP">Nepal</option>
+                                            <option value="NL">Netherlands</option>
+                                            <option value="NC">New Caledonia</option>
+                                            <option value="NZ">New Zealand</option>
+                                            <option value="NI">Nicaragua</option>
+                                            <option value="NE">Niger</option>
+                                            <option value="NG">Nigeria</option>
+                                            <option value="NU">Niue</option>
+                                            <option value="NF">Norfolk Island</option>
+                                            <option value="MP">Northern Mariana Islands</option>
+                                            <option value="NO">Norway</option>
+                                            <option value="OM">Oman</option>
+                                            <option value="PK">Pakistan</option>
+                                            <option value="PW">Palau</option>
+                                            <option value="PS">Palestine, State of</option>
+                                            <option value="PA">Panama</option>
+                                            <option value="PG">Papua New Guinea</option>
+                                            <option value="PY">Paraguay</option>
+                                            <option value="PE">Peru</option>
+                                            <option value="PH">Philippines</option>
+                                            <option value="PN">Pitcairn</option>
+                                            <option value="PL">Poland</option>
+                                            <option value="PT">Portugal</option>
+                                            <option value="PR">Puerto Rico</option>
+                                            <option value="QA">Qatar</option>
+                                            <option value="RE">Réunion</option>
+                                            <option value="RO">Romania</option>
+                                            <option value="RU">Russian Federation</option>
+                                            <option value="RW">Rwanda</option>
+                                            <option value="BL">Saint Barthélemy</option>
+                                            <option value="SH">Saint Helena, Ascension and Tristan da Cunha</option>
+                                            <option value="KN">Saint Kitts and Nevis</option>
+                                            <option value="LC">Saint Lucia</option>
+                                            <option value="MF">Saint Martin (French part)</option>
+                                            <option value="PM">Saint Pierre and Miquelon</option>
+                                            <option value="VC">Saint Vincent and the Grenadines</option>
+                                            <option value="WS">Samoa</option>
+                                            <option value="SM">San Marino</option>
+                                            <option value="ST">Sao Tome and Principe</option>
+                                            <option value="SA">Saudi Arabia</option>
+                                            <option value="SN">Senegal</option>
+                                            <option value="RS">Serbia</option>
+                                            <option value="SC">Seychelles</option>
+                                            <option value="SL">Sierra Leone</option>
+                                            <option value="SG">Singapore</option>
+                                            <option value="SX">Sint Maarten (Dutch part)</option>
+                                            <option value="SK">Slovakia</option>
+                                            <option value="SI">Slovenia</option>
+                                            <option value="SB">Solomon Islands</option>
+                                            <option value="SO">Somalia</option>
+                                            <option value="ZA">South Africa</option>
+                                            <option value="GS">South Georgia and the South Sandwich Islands</option>
+                                            <option value="ES">Spain</option>
+                                            <option value="LK">Sri Lanka</option>
+                                            <option value="SD">Sudan</option>
+                                            <option value="SR">Suriname</option>
+                                            <option value="SJ">Svalbard and Jan Mayen</option>
+                                            <option value="SZ">Eswatini</option>
+                                            <option value="SE">Sweden</option>
+                                            <option value="CH">Switzerland</option>
+                                            <option value="SY">Syrian Arab Republic</option>
+                                            <option value="TW">Taiwan, Province of China</option>
+                                            <option value="TJ">Tajikistan</option>
+                                            <option value="TZ">Tanzania, United Republic of</option>
+                                            <option value="TH">Thailand</option>
+                                            <option value="TL">Timor-Leste</option>
+                                            <option value="TG">Togo</option>
+                                            <option value="TK">Tokelau</option>
+                                            <option value="TO">Tonga</option>
+                                            <option value="TT">Trinidad and Tobago</option>
+                                            <option value="TN">Tunisia</option>
+                                            <option value="TR">Turkey</option>
+                                            <option value="TM">Turkmenistan</option>
+                                            <option value="TC">Turks and Caicos Islands</option>
+                                            <option value="TV">Tuvalu</option>
+                                            <option value="UG">Uganda</option>
+                                            <option value="UA">Ukraine</option>
+                                            <option value="AE">United Arab Emirates</option>
+                                            <option value="GB">United Kingdom</option>
+                                            <option value="US">United States</option>
+                                            <option value="UY">Uruguay</option>
+                                            <option value="UZ">Uzbekistan</option>
+                                            <option value="VU">Vanuatu</option>
+                                            <option value="VA">Vatican City</option>
+                                            <option value="VE">Venezuela</option>
+                                            <option value="VN" selected>Vietnam</option>
+                                            <option value="EH">Western Sahara</option>
+                                            <option value="YE">Yemen</option>
+                                            <option value="ZM">Zambia</option>
+                                            <option value="ZW">Zimbabwe</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="phone">Số điện thoại</label>
+                                    <div class="input-wrapper">
+                                        <i data-lucide="phone" class="icon"></i>
+                                        <input type="tel" id="phone" class="has-icon">
+                                    </div>
+                                    <p class="input-hint">Để xác minh thông tin và liên lạc khi cần thiết.</p>
+                                </div>
+                            </form>
+                        </div>
+
+
+                        <!-- Arrival Time -->
+                        <div class="card">
+                            <h2 class="text-xl font-bold mb-4">Thời gian đến của bạn</h2>
+                            <div class="arrival-info-item">
+                                <i data-lucide="check-circle" class="icon"></i>
+                                <p>Phòng của bạn sẽ sẵn sàng để nhận trong khoảng từ 14:00 đến 23:00.</p>
+                            </div>
+                            <div class="arrival-info-item">
+                                <i data-lucide="user-check" class="icon"></i>
+                                <p>Lễ tân 24 giờ - Luôn có trợ giúp mọi khi bạn cần!</p>
+                            </div>
+                            <div class="form-group">
+                                <label for="arrival-time">Thêm thời gian đến dự kiến của bạn (không bắt buộc)</label>
+                                <div class="select-wrapper">
+                                    <select id="arrival-time" name="arrival-time">
+                                        <option value="">Tôi không biết</option>
+                                        <option value="14:00-15:00">14:00 - 15:00</option>
+                                        <option value="15:00-16:00">15:00 - 16:00</option>
+                                        <option value="16:00-17:00">16:00 - 17:00</option>
+                                        <option value="17:00-18:00">17:00 - 18:00</option>
+                                        <option value="18:00-19:00">18:00 - 19:00</option>
+                                        <option value="19:00-20:00">19:00 - 20:00</option>
+                                        <option value="20:00-21:00">20:00 - 21:00</option>
+                                        <option value="21:00-22:00">21:00 - 22:00</option>
+                                        <option value="22:00-23:00">22:00 - 23:00</option>
+                                    </select>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Special Requests -->
+                        <div class="card">
+                            <h2 class="text-xl font-bold mb-2">Các yêu cầu khác (nếu có)</h2>
+                            <p class="text-sm mb-4" style="color: #4b5563;">Các yêu cầu đặc biệt không đảm bảo sẽ được
+                                đáp
+                                ứng – tuy nhiên, chúng tôi sẽ cố gắng hết sức để thực hiện.</p>
+                            <div class="form-group">
+                                <label for="requests">Vui lòng nhập yêu cầu hoặc ghi chú của bạn tại đây.</label>
+                                <textarea id="requests" rows="4"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-end">
+                            <button class="btn btn-primary flex items-center" id="btn-checkout-form">
+                                Bước tiếp theo
+                                <i data-lucide="chevron-right" class="ml-2" style="width:1rem; height:1rem;"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Right Column -->
+                    <div class="sidebar">
+                        <!-- Hotel info giữ nguyên -->
+                        <div class="card hotel-details-card">
+                            <div class="flex items-start space-x-4">
+                                <div class="map-thumb">
+                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3834.329343823531!2d108.21387137524813!3d16.04839048462809!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x314219c724777be3%3A0x69e63b50f21f87bb!2zS2jDoWNoIHPhuqFuIEVkZW4gUGxhemEgxJDDoCBO4bq1bmc!5e0!3m2!1sen!2s!4v1754380658288!5m2!1sen!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                </div>
+                                <div>
+                                    <span class="text-xs" style="color: #6b7280;">Khách sạn</span>
+                                    <h3 class="font-bold text-lg">Eden Plaza Da Nang Hotel</h3>
+                                    <div class="star-rating">
+                                        <i data-lucide="star" class="icon"></i>
+                                        <i data-lucide="star" class="icon"></i>
+                                        <i data-lucide="star" class="icon"></i>
+                                        <i data-lucide="star" class="icon"></i>
+                                        <i data-lucide="star" class="icon"></i>
+                                    </div>
+                                    <p class="text-xs mt-1" style="color: #4b5563;">05 - 07 Duy Tân, Hoà Cường Bắc, Hải Châu, Đà Nẵng, Việt Nam</p>
+                                </div>
+                            </div>
+                            <!-- Amenities Grid -->
+                            <div class="amenities-grid">
+                                <div class="amenity-item">
+                                    <i data-lucide="wifi" class="icon"></i>
+                                    <span>WiFi miễn phí</span>
+                                </div>
+                                <div class="amenity-item">
+                                    <i data-lucide="car" class="icon"></i>
+                                    <span>Chỗ đỗ xe</span>
+                                </div>
+                                <div class="amenity-item">
+                                    <i data-lucide="utensils" class="icon"></i>
+                                    <span>Nhà hàng</span>
+                                </div>
+                                <div class="amenity-item">
+                                    <i data-lucide="waves" class="icon"></i>
+                                    <span>Hồ bơi</span>
+                                </div>
+                                <div class="amenity-item">
+                                    <i data-lucide="dumbbell" class="icon"></i>
+                                    <span>Phòng tập</span>
+                                </div>
+
+                            </div>
+                            <div class="mt-4 pt-4 border-t flex items-center">
+                                <div class="review-score">9.5</div>
+                                <div style="margin-left: 0.75rem;">
+                                    <p class="font-semibold">Rất hài lòng</p>
+                                    <p class="text-xs" style="color: #6b7280;">Dựa trên 188 đánh giá</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- XÓA phần "Your booking details" ở đây (đã chuyển lên main-content) -->
+
+
+                        <!-- Cancellation -->
+                        <div class="card">
+                            <h3 class="font-bold mb-2">Chính sách huỷ phòng</h3>
+                            <div class="flex items-start text-sm">
+                                <i data-lucide="check-circle-2" class="text-green-600"
+                                    style="width: 1.25rem; height: 1.25rem; margin-right: 0.5rem; flex-shrink: 0;"></i>
+                                <div>
+                                    <p class="font-semibold text-green-700">Hủy trước 24 giờ so với giờ nhận phòng: miễn
+                                        phí
+                                        và hoàn 100% tiền cọc.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="flex items-start text-sm mt-2">
+                                <i data-lucide="info"
+                                    style="color: #6b7280; width: 1.25rem; height: 1.25rem; margin-right: 0.5rem; flex-shrink: 0;"></i>
+                                <div>
+                                    <p>Có thể nâng hạng phòng – tùy vào tình trạng phòng trống khi nhận phòng.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="footer-container"></div>
+    </div>
+    <!-- Lucide icon script -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const list = JSON.parse(localStorage.getItem('myBookings')) || [];
+            if (!list.length) return;
+            const last = list[list.length - 1];
+
+            // Format ngày
+            function formatVN(dateStr) {
+                const [d, m, y] = dateStr.split('-').map(Number);
+                const dt = new Date(y, m - 1, d);
+                const map = { 0: 'CN', 1: 'T2', 2: 'T3', 3: 'T4', 4: 'T5', 5: 'T6', 6: 'T7' };
+                return `${map[dt.getDay()]}, ${d} tháng ${m} ${y}`;
+            }
+
+            // Lấy data
+            const checkin = last.checkin;
+            const checkout = last.checkout;
+            const quantity = last.quantity;
+            const price = last.price; // số, ví dụ 850000
+
+            // Tính số đêm
+            const [d1, m1, y1] = checkin.split('-').map(Number);
+            const [d2, m2, y2] = checkout.split('-').map(Number);
+            const dateIn = new Date(y1, m1 - 1, d1);
+            const dateOut = new Date(y2, m2 - 1, d2);
+            const nights = Math.round((dateOut - dateIn) / (1000 * 60 * 60 * 24));
+
+            // Gán text cho các phần đã có
+            document.getElementById('checkin').textContent = formatVN(checkin);
+            document.getElementById('checkout').textContent = formatVN(checkout);
+            document.getElementById('number-date').textContent = `${nights} đêm`;
+            document.getElementById('room-name').textContent = `${last.roomName} x ${quantity}`;
+
+            // —— Phần mới: tính tổng tiền và hiển thị ——
+            const total = price * quantity * nights;
+            // Lưu vào localStorage
+            localStorage.setItem('totalAmount', total);
+            // format với dấu phẩy ngăn cách hàng nghìn
+            const formattedTotal = total.toLocaleString('en-US');
+            document.getElementById('price-total').textContent = `VND ${formattedTotal}`;
+        });
+    </script>
+
+    <script>
+        document.getElementById("btn-checkout-form").addEventListener("click", function () {
+            const firstName = document.getElementById("first-name").value.trim();
+            const lastName = document.getElementById("last-name").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const phone = document.getElementById("phone").value.trim();
+            // const deposit = 
+
+            // Kiểm tra nếu có bất kỳ ô nào bị bỏ trống
+            if (!firstName || !lastName || !email || !phone) {
+                alert("Thông tin đặt phòng của bạn chưa đầy đủ, vui lòng kiểm tra lại!");
+                return;
+            }
+            // Lấy tổng tiền từ localStorage
+            const totalAmount = Number(localStorage.getItem("totalAmount")) || 0;
+
+            // Tính khoảng 50% tổng tiền
+            const depositTarget = totalAmount * 0.5;
+
+            // Các mốc cọc
+            const depositLevels = [500000, 1000000, 2000000, 3000000];
+
+            // Hàm tìm mốc gần nhất
+            function findNearestDeposit(target, levels) {
+                return levels.reduce((prev, curr) =>
+                    Math.abs(curr - target) < Math.abs(prev - target) ? curr : prev
+                );
+            }
+
+            const deposit = findNearestDeposit(depositTarget, depositLevels);
+
+
+            const userData = {
+                fullName: `${firstName} ${lastName}`,
+                email: email,
+                phone: phone,
+                deposit: deposit
+            };
+
+            localStorage.setItem("userInfo", JSON.stringify(userData));
+            // alert(
+            //     `Đã lưu thông tin:\n` +
+            //     `Họ tên: ${userData.fullName}\n` +
+            //     `Email: ${userData.email}\n` +
+            //     `SĐT: ${userData.phone}\n` +
+            //     `Tiền cọc: ${deposit.toLocaleString()} VND (khoảng 50% tổng tiền)`
+            // );
+            window.location.href = 'checkout-pay.html';
+        });
+    </script>
+
+
+    <!-- Gắn header và footer HTML -->
+    <script src="header.js"></script>
+    <script>
+        // Load header và gọi initHeader
+        fetch('header.html')
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('header-container').innerHTML = html;
+                if (typeof initHeader === 'function') initHeader(); // Chắc chắn hàm tồn tại
+            });
+
+        // Load footer
+        fetch('footer.html')
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('footer-container').innerHTML = html;
+            });
+    </script>
+    <!-- End Gắn header và footer HTML -->
+
+</body>
+
+</html>
