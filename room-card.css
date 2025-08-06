@@ -1,0 +1,494 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --font-sans: 'Arial', sans-serif;
+    --bg-light: #f0f3f5;
+    --bg-white: #fff;
+    --border: 1px solid #e0e0e0;
+    --radius: 0.5rem;
+    --color-primary: #0d4273;
+    --color-secondary: #4a4a4a;
+    --color-accent: #008234;
+    --color-danger: #d91e18;
+    --gradient-primary: linear-gradient(to bottom, #5392f9, #437fe8);
+    --gradient-primary-hover: linear-gradient(to bottom, #437fe8, #336cda);
+    --gap: 1rem;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-sans);
+    background: var(--bg-light);
+    padding: var(--gap);
+}
+
+.room-card-container {
+    display: flex;
+    justify-content: center;
+}
+
+.room-card {
+    background: var(--bg-white);
+    border: var(--border);
+    border-radius: var(--radius);
+    box-shadow: 0 .125rem .25rem rgba(0, 0, 0, 0.05);
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    margin: 10px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.room-details-left,
+.room-details-right {
+    padding: var(--gap);
+}
+
+/* LEFT SIDE */
+.room-image-container {
+    position: relative;
+    margin-bottom: var(--gap);
+}
+
+.room-image {
+    width: 100%;
+    border-radius: var(--radius);
+    display: block;
+}
+
+.see-photos-btn {
+    position: absolute;
+    bottom: var(--gap);
+    left: var(--gap);
+    background: rgba(0, 0, 0, 0.6);
+    color: var(--bg-white);
+    border: none;
+    border-radius: 1rem;
+    padding: .25rem .75rem;
+    font-size: .75rem;
+    cursor: pointer;
+    transition: background .2s;
+}
+
+.see-photos-btn:hover {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.room-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: var(--color-primary);
+    margin-bottom: var(--gap);
+}
+
+.room-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap);
+    list-style: none;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    font-size: .875rem;
+    color: var(--color-secondary);
+}
+
+.feature-item svg {
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-right: .5rem;
+    fill: var(--color-secondary);
+}
+
+/* RIGHT SIDE */
+.room-details-right {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    border-left: var(--border);
+}
+
+.benefits-list {
+    list-style: none;
+    margin-bottom: var(--gap);
+    padding: 0;
+}
+
+.benefit-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: .75rem;
+    font-size: .875rem;
+    color: var(--color-accent);
+    font-weight: bold;
+}
+
+.benefit-item.secondary {
+    color: var(--color-secondary);
+    font-weight: normal;
+}
+
+.benefit-item svg {
+    width: 1rem;
+    height: 1rem;
+    margin-right: .5rem;
+    fill: currentColor;
+}
+
+.price-column {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    text-align: right;
+    padding-left: var(--gap);
+}
+
+.price-includes {
+    display: flex;
+    align-items: center;
+    font-size: .75rem;
+    color: var(--color-secondary);
+    gap: .25rem;
+    margin-bottom: .5rem;
+}
+
+.price-includes svg {
+    width: .875rem;
+    height: .875rem;
+    fill: var(--color-secondary);
+}
+
+.price-original {
+    font-size: .875rem;
+    color: var(--color-danger);
+    text-decoration: line-through;
+}
+
+.price-current {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--color-secondary);
+    margin: .25rem 0;
+}
+
+.price-per-night {
+    font-size: .75rem;
+    color: var(--color-secondary);
+    margin-bottom: var(--gap);
+}
+
+.supply-tag {
+    background: #fdf2f2;
+    color: var(--color-danger);
+    font-size: .75rem;
+    font-weight: bold;
+    padding: .25rem .5rem;
+    border-radius: var(--radius);
+    margin-bottom: var(--gap);
+}
+
+/* BOOKING ACTIONS */
+.booking-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: var(--gap);
+    width: 100%;
+}
+
+/* Booking-style Date Picker */
+.date-picker-wrapper {
+    display: flex;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    flex: 2;
+}
+
+.date-control {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    position: relative;
+    padding: 0.75rem 0.5rem;
+    text-align: center;
+}
+
+.date-label {
+    font-size: 0.75rem;
+    color: #777;
+    margin-bottom: 0.25rem;
+}
+
+.date-control input[type="text"] {
+    width: 100%;
+    border: none;
+    background: transparent;
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+}
+
+.date-control input[type="text"]:focus {
+    outline: none;
+}
+
+.divider {
+    width: 1px;
+    background: #ddd;
+    margin: auto 0.25rem;
+    height: 60%;
+}
+
+/* Quantity */
+.quantity-wrapper {
+    display: flex;
+    /* chuyển thành flex container */
+    flex-direction: row;
+    /* 1 hàng ngang */
+    align-items: center;
+    /* canh giữa theo chiều dọc */
+    justify-content: center;
+    /* canh giữa theo chiều ngang */
+    gap: 0.5rem;
+    /* khoảng cách giữa label và input */
+    flex: 1;
+    /* cho co giãn nếu cần */
+}
+
+.quantity-label {
+    margin: 0;
+    /* bỏ margin-bottom */
+    font-weight: bold;
+    /* nếu cần cố định độ rộng cho label: width: 8rem; text-align: right; */
+}
+
+.quantity-control {
+    display: flex;
+    align-items: center;
+    /* canh input + button giữa dọc */
+}
+
+
+.quantity-btn {
+    background: var(--bg-white);
+    border: 1px solid #ccc;
+    padding: 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    user-select: none;
+    transition: background .2s;
+}
+
+.quantity-btn:hover {
+    background: var(--bg-light);
+}
+
+.quantity-btn.minus {
+    border-top-left-radius: var(--radius);
+    border-bottom-left-radius: var(--radius);
+    border-right: none;
+}
+
+.quantity-btn.plus {
+    border-top-right-radius: var(--radius);
+    border-bottom-right-radius: var(--radius);
+    border-left: none;
+}
+
+.room-quantity-selector {
+    width: 60%;
+    text-align: center;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    border-left: none;
+    border-right: none;
+    padding: 1rem;
+    font-size: 1rem;
+}
+
+/* Book button */
+.book-now-btn {
+    flex: 1;
+    background: var(--gradient-primary);
+    color: var(--bg-white);
+    border: none;
+    border-radius: var(--radius);
+    padding: .75rem 1rem;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background .2s;
+}
+
+.book-now-btn:hover {
+    background: var(--gradient-primary-hover);
+}
+
+.scarcity-message {
+    font-size: .875rem;
+    color: var(--color-danger);
+    font-weight: bold;
+    text-align: center;
+    grid-column: 1 / -1;
+}
+
+@media (max-width: 900px) {
+    .room-card {
+        grid-template-columns: 1fr;
+    }
+
+    .room-details-right {
+        grid-template-columns: 1fr;
+        border-left: none;
+        border-top: var(--border);
+    }
+
+    .price-column {
+        align-items: flex-start;
+        text-align: left;
+        padding-left: 0;
+    }
+
+    .booking-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .quantity-wrapper {
+        margin-bottom: .5rem;
+    }
+}
+
+@media (min-width: 900px) {
+    /* Gộp tất cả styles cho màn hình ≥900px */
+
+    /* Block 1 */
+    .booking-actions {
+        justify-content: flex-start;
+        /* giãn đều theo flex-basis phía dưới */
+    }
+
+    .date-picker-wrapper {
+        flex: 0 0 300px;
+        /* bạn có thể chỉnh 260px, 280px… cho phù hợp */
+    }
+
+    .date-control {
+        min-width: 140px;
+        /* đủ rộng để hiển thị "dd‑mm‑yyyy" không bị cắt */
+    }
+
+    .quantity-wrapper {
+        flex: 0 0 120px;
+    }
+
+    .book-now-btn {
+        flex: 0 0 140px;
+    }
+
+    /* Block 2 */
+    .booking-actions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .date-picker-wrapper {
+        flex: 0 0 100%;
+        margin-bottom: var(--gap);
+    }
+
+    .quantity-wrapper,
+    .book-now-btn {
+        flex: 0 0 auto;
+    }
+
+    /* Block 3 */
+    .booking-actions {
+        flex-wrap: wrap;
+    }
+
+    .date-picker-wrapper {
+        flex: 0 0 100%;
+        margin-bottom: var(--gap);
+    }
+
+    .quantity-wrapper {
+        flex: 0 0 100%;
+        margin-bottom: var(--gap);
+    }
+
+    .book-now-btn {
+        flex: 0 0 100%;
+    }
+
+    /* Block 4 */
+    .quantity-wrapper {
+        /* chắc chắn text không bị canh giữa */
+        text-align: left;
+    }
+}
+
+.photo-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+.photo-modal-content {
+    position: relative;
+    width: 90%;
+    max-width: 800px;
+}
+
+.modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 2rem;
+    color: #fff;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.swiper-container {
+    width: 100%;
+    height: 80vh;
+}
+
+.swiper-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+    color: #fff;
+}
+
+.swiper-pagination-bullet {
+    background: #fff;
+}

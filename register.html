@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng ký</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="icon" type="image/png" href="img/favicon.png">
+    <style>
+        /* Giữ nguyên style cũ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .login-wrapper {
+            min-height: 60vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px 15px;
+        }
+
+        .login-box {
+            width: 100%;
+            max-width: 500px;
+            padding: 30px 25px;
+        }
+
+        .login-box h2 {
+            text-align: center;
+            color: #0d4273;
+            margin-bottom: 45px;
+        }
+
+        .input-group {
+            margin-bottom: 18px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-group label {
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+
+        .input-group input,
+        .input-group select {
+            padding: 10px 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+            transition: 0.2s ease;
+        }
+
+        .input-group input:focus,
+        .input-group select:focus {
+            border-color: #0d4273;
+        }
+
+        .action-group button {
+            width: 100%;
+            padding: 12px;
+            background: #0d4273;
+            color: #fff;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .action-group button:hover {
+            background: #09315a;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 12px;
+            top: 36px;
+            cursor: pointer;
+            font-size: 16px;
+            user-select: none;
+        }
+
+        .password-group {
+            position: relative;
+        }
+
+        @media (max-width: 480px) {
+            .login-box {
+                padding: 25px 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div id="preloader-container"></div>
+    <script>
+        fetch('preloader.html')
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('preloader-container').innerHTML = html;
+                // Chờ 1–2 giây rồi mới hiển thị nội dung chính
+                setTimeout(() => {
+                    document.getElementById('main-content').style.display = 'block';
+                }, 1000); // hoặc lâu hơn tùy animation
+            });
+    </script>
+    <script src="preloader.js"></script>
+
+    <div id="main-content" style="display: none;">
+
+        <!-- Header -->
+        <div id="header-container"></div>
+
+        <!-- Register Form -->
+        <div class="content">
+            <div class="login-wrapper">
+                <div class="login-box">
+                    <h2>Đăng ký</h2>
+                    <form id="registerForm">
+                        <div class="input-group">
+                            <label for="fullname">Họ và tên</label>
+                            <input type="text" id="fullname" name="fullname" placeholder="Nhập họ và tên" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" placeholder="Nhập email" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="phone">Số điện thoại</label>
+                            <input type="text" id="phone" name="phone" placeholder="Nhập số điện thoại" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="memberType">Loại thành viên</label>
+                            <select id="memberType" name="memberType" required>
+                                <option value="">-- Chọn loại thành viên --</option>
+                                <option value="personal">Cá nhân</option>
+                                <option value="business">Doanh nghiệp</option>
+                            </select>
+                        </div>
+                        <div class="input-group password-group">
+                            <label for="password">Mật khẩu</label>
+                            <input type="password" id="password" name="password" placeholder="Tạo mật khẩu" required>
+                            <span class="toggle-password" onclick="togglePassword()">👁️</span>
+                        </div>
+                        <div class="input-group">
+                            <label for="confirm-password">Xác nhận mật khẩu</label>
+                            <input type="password" id="confirm-password" name="confirm-password"
+                                placeholder="Nhập lại mật khẩu" required>
+                        </div>
+                        <div class="action-group">
+                            <button type="submit">Đăng ký</button>
+                        </div>
+                        <div class="extra-options" style="justify-content: center; margin-top: 20px;">
+                            <span>Bạn đã có tài khoản? <a href="login.html">Đăng nhập</a></span>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div id="footer-container"></div>
+    </div>
+
+    <!-- Lucide icon -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        lucide.createIcons();
+        function togglePassword() {
+            const input = document.getElementById("password");
+            const type = input.getAttribute("type");
+            input.setAttribute("type", type === "password" ? "text" : "password");
+        }
+    </script>
+
+    <script>
+        document.getElementById("registerForm").addEventListener("submit", function (e) {
+            e.preventDefault(); // Ngăn reload
+
+            const password = document.getElementById("password").value;
+            const confirm = document.getElementById("confirm-password").value;
+
+            if (password !== confirm) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Lỗi!',
+                    text: 'Mật khẩu xác nhận không khớp.',
+                    confirmButtonText: 'Thử lại'
+                });
+                return;
+            }
+
+            // Hiển thị loading
+            Swal.fire({
+                title: 'Đang xử lý...',
+                text: 'Vui lòng chờ trong giây lát.',
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+
+            // Mô phỏng xử lý backend (1.5s)
+            setTimeout(() => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Đăng ký thành công!',
+                    text: 'Bạn có thể đóng thông báo này.',
+                    showConfirmButton: false,
+                    showCloseButton: true, // 👉 Nút X để tắt
+                    timer: undefined // Không tự động đóng
+                });
+
+                // Optional: reset form sau khi đăng ký
+                document.getElementById("registerForm").reset();
+
+            }, 1500);
+        });
+    </script>
+
+
+    <!-- Gắn header và footer HTML -->
+    <script src="header.js"></script>
+    <script>
+        // Load header và gọi initHeader
+        fetch('header.html')
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('header-container').innerHTML = html;
+                if (typeof initHeader === 'function') initHeader(); // Chắc chắn hàm tồn tại
+            });
+
+        // Load footer
+        fetch('footer.html')
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('footer-container').innerHTML = html;
+            });
+    </script>
+    <!-- End Gắn header và footer HTML -->
+</body>
+
+</html>

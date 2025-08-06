@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="img/favicon.png">
+    <title>Hội viên</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .loyalty-wrapper {
+            max-width: 960px;
+            margin: 60px auto;
+            padding: 20px;
+        }
+
+        .loyalty-box h1 {
+            font-size: 28px;
+            color: #0d4273;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .loyalty-box h2 {
+            font-size: 20px;
+            color: #244b8a;
+            margin-top: 30px;
+        }
+
+        .loyalty-box p {
+            margin-top: 10px;
+            line-height: 1.6;
+            text-align: justify;
+        }
+
+        .loyalty-box ul {
+            margin-top: 10px;
+            padding-left: 20px;
+        }
+
+        .loyalty-box ul li {
+            margin-bottom: 8px;
+        }
+
+        .loyalty-box table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 15px;
+        }
+
+        .loyalty-box table th,
+        .loyalty-box table td {
+            border: 1px solid #ccc;
+            padding: 10px 12px;
+            text-align: left;
+        }
+
+        .loyalty-box table th {
+            background-color: #f0f2f5;
+            color: #0d4273;
+        }
+
+        .note {
+            margin-top: 30px;
+            padding: 15px;
+            background: #f9f9f9;
+            border-left: 5px solid #0d4273;
+            font-style: italic;
+            color: #333;
+        }
+
+        @media (max-width: 600px) {
+            .loyalty-wrapper {
+                margin: 30px 15px;
+                padding: 15px;
+            }
+
+            .loyalty-box h1 {
+                font-size: 22px;
+            }
+
+            .loyalty-box h2 {
+                font-size: 18px;
+            }
+
+            .loyalty-box table {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div id="preloader-container"></div>
+    <script>
+        fetch('preloader.html')
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('preloader-container').innerHTML = html;
+                // Chờ 1–2 giây rồi mới hiển thị nội dung chính
+                setTimeout(() => {
+                    document.getElementById('main-content').style.display = 'block';
+                }, 1000); // hoặc lâu hơn tùy animation
+            });
+    </script>
+    <script src="preloader.js"></script>
+    <!-- End Preloader -->
+
+    <div id="main-content" style="display: none;">
+        <!-- Gắn header HTML -->
+        <div id="header-container"></div>
+
+        <div class="content">
+            <div class="loyalty-wrapper">
+                <div class="loyalty-box">
+                    <h1>Chính sách Tích Lũy Hội Viên</h1>
+
+                    <h2>I. Hình thức tích lũy</h2>
+                    <p>
+                        Khách hàng khi <strong>đặt phòng trực tiếp trên website</strong> và hoàn tất ít nhất <strong>1
+                            lần
+                            lưu trú thành công</strong> sẽ chính thức trở thành Hội viên và được tích lũy số
+                        <strong>Đơn</strong> hoặc <strong>Đêm</strong> lưu trú để nâng hạng và hưởng các quyền lợi ưu
+                        đãi
+                        tương ứng.
+                    </p>
+                    <ul>
+                        <li>Khách chưa từng hoàn tất lưu trú sẽ <strong>chưa đủ điều kiện trở thành Hội viên</strong> và
+                            <strong>không được tích lũy</strong>.
+                        </li>
+                        <li>Mỗi đơn đặt phòng hợp lệ phải có ít nhất <strong>01 đêm lưu trú</strong>.</li>
+                        <li>Số đơn và số đêm chỉ được ghi nhận <strong>sau khi khách hoàn tất thủ tục trả
+                                phòng</strong>.
+                        </li>
+                        <li><strong>Không áp dụng tích lũy cho người đặt hộ</strong> (tên người đặt và người lưu trú
+                            phải
+                            trùng khớp).</li>
+                        <li><strong>Không áp dụng quyền lợi hội viên</strong> đồng thời với các chương trình khuyến mãi
+                            khác
+                            (trừ khi có quy định cụ thể).</li>
+                    </ul>
+
+                    <h2>II. Phân hạng hội viên & Điều kiện nâng hạng</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Hạng hội viên</th>
+                                <th>Điều kiện</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Hội Viên Mới</td>
+                                <td>Hoàn tất ít nhất 1 lần đặt phòng và trả phòng thành công</td>
+                            </tr>
+                            <tr>
+                                <td>Hội Viên Bạc</td>
+                                <td>2 đơn đặt phòng/năm <br>hoặc 4 đêm/năm</td>
+                            </tr>
+                            <tr>
+                                <td>Hội Viên Vàng</td>
+                                <td>4 đơn đặt phòng/năm <br>hoặc 10 đêm/năm</td>
+                            </tr>
+                            <tr>
+                                <td>Hội Viên Bạch Kim</td>
+                                <td>Trên 10 đơn đặt phòng/năm <br>hoặc 31 đêm/năm</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h2>III. Kỳ xét nâng hạng</h2>
+                    <p>
+                        Tính từ thời điểm khách có đơn đặt phòng đầu tiên sau khi đăng ký hội viên đến khi đạt đủ số đơn
+                        hoặc số đêm theo quy định. Việc nâng hạng được hệ thống tự động xét duyệt.
+                    </p>
+
+                    <h2>IV. Chính sách hoàn tiền mặt</h2>
+                    <p>
+                        Sau mỗi lần đặt phòng trực tiếp trên website và hoàn tất lưu trú, Hội viên sẽ được hoàn tiền
+                        theo tỷ
+                        lệ tương ứng với hạng hiện tại. Số tiền hoàn sẽ được cộng vào tài khoản và có thể dùng để thanh
+                        toán
+                        cho các đơn tiếp theo.
+                    </p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Hạng hội viên</th>
+                                <th>Tỷ lệ hoàn tiền</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Hội Viên Mới</td>
+                                <td>3%</td>
+                            </tr>
+                            <tr>
+                                <td>Hội Viên Bạc</td>
+                                <td>5%</td>
+                            </tr>
+                            <tr>
+                                <td>Hội Viên Vàng</td>
+                                <td>7%</td>
+                            </tr>
+                            <tr>
+                                <td>Hội Viên Bạch Kim</td>
+                                <td>10%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <ul>
+                        <li>Hoàn tiền được cập nhật sau khi khách trả phòng thành công.</li>
+                        <li>Số tiền hoàn có thể dùng để giảm giá cho đơn tiếp theo hoặc rút về tài khoản khi đạt mức tối
+                            thiểu.</li>
+                        <li>Không áp dụng hoàn tiền với các đơn hủy hoặc không đến (no-show).</li>
+                    </ul>
+
+                    <p class="note">
+                        🔔 <strong>Lưu ý:</strong> Chính sách có thể được điều chỉnh theo từng thời điểm. Vui lòng theo
+                        dõi
+                        tại website chính thức để cập nhật mới nhất.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div id="footer-container"></div>
+    </div>
+
+
+    <!-- Lucide icon script -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+
+    <!-- Gắn header và footer HTML -->
+    <script src="header.js"></script>
+    <script>
+        // Load header và gọi initHeader
+        fetch('header.html')
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('header-container').innerHTML = html;
+                if (typeof initHeader === 'function') initHeader(); // Chắc chắn hàm tồn tại
+            });
+
+        // Load footer
+        fetch('footer.html')
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('footer-container').innerHTML = html;
+            });
+    </script>
+    <!-- End Gắn header và footer HTML -->
+
+</body>
+
+</html>

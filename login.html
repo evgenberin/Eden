@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="icon" type="image/png" href="img/favicon.png">
+    <title>Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .login-wrapper {
+            min-height: 60vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px 15px;
+        }
+
+        .login-box {
+            width: 100%;
+            max-width: 400px;
+            padding: 30px 25px;
+        }
+
+        .login-box h2 {
+            text-align: center;
+            color: #0d4273;
+            margin-bottom: 45px;
+        }
+
+        .input-group {
+            margin-bottom: 18px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-group label {
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+
+        .input-group input {
+            padding: 10px 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+            transition: 0.2s ease;
+        }
+
+        .input-group input:focus {
+            border-color: #0d4273;
+        }
+
+        .password-group {
+            position: relative;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 12px;
+            top: 36px;
+            cursor: pointer;
+            font-size: 16px;
+            user-select: none;
+        }
+
+        .action-group button {
+            width: 100%;
+            padding: 12px;
+            background: #0d4273;
+            color: #fff;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .action-group button:hover {
+            background: #09315a;
+        }
+
+        @media (max-width: 480px) {
+            .login-box {
+                padding: 25px 15px;
+            }
+        }
+
+        .extra-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px 0 20px;
+            font-size: 14px;
+        }
+
+        .extra-options a {
+            text-decoration: none;
+            color: #0d4273;
+            font-weight: bold;
+        }
+
+        .extra-options a:hover {
+            text-decoration: underline;
+        }
+
+        .extra-options input[type="checkbox"] {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div id="preloader-container"></div>
+    <script>
+        fetch('preloader.html')
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('preloader-container').innerHTML = html;
+                // Chờ 1–2 giây rồi mới hiển thị nội dung chính
+                setTimeout(() => {
+                    document.getElementById('main-content').style.display = 'block';
+                }, 1000); // hoặc lâu hơn tùy animation
+            });
+    </script>
+    <script src="preloader.js"></script>
+    <!-- End Preloader -->
+
+    <div id="main-content" style="display: none;">
+
+        <!-- Gắn header HTML -->
+        <div id="header-container"></div>
+
+        <div class="content">
+            <div class="login-wrapper">
+                <div class="login-box">
+                    <h2>Đăng nhập</h2>
+                    <form id="loginForm">
+                        <div class="input-group">
+                            <label for="email">Email hoặc số điện thoại</label>
+                            <input type="text" id="email" name="email" placeholder="Nhập email hoặc số điện thoại"
+                                required>
+                        </div>
+                        <div class="input-group password-group">
+                            <label for="password">Mật khẩu</label>
+                            <input type="password" id="password" name="password" placeholder="Nhập mật khẩu" required>
+                            <span class="toggle-password" onclick="togglePassword()">👁️</span>
+                        </div>
+                        <div class="extra-options">
+                            <label><input type="checkbox" name="remember"> Ghi nhớ đăng nhập</label>
+                            <a href="#">Quên mật khẩu?</a>
+                        </div>
+                        <div class="action-group">
+                            <button type="submit">Đăng nhập</button>
+                        </div>
+                        <div class="extra-options" style="justify-content: center; margin-top: 20px;">
+                            <span>Bạn chưa có tài khoản? <a href="register.html">Đăng kí</a></span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div id="footer-container"></div>
+    </div>
+
+    <!-- Lucide icon script -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+    <script>
+        document.getElementById("loginForm").addEventListener("submit", function (e) {
+            e.preventDefault(); // Ngăn reload trang
+
+            const email = document.getElementById("email").value.trim();
+            const password = document.getElementById("password").value;
+
+            // ✅ Hiển thị loading giả lập
+            Swal.fire({
+                title: 'Đang kiểm tra...',
+                text: 'Vui lòng chờ trong giây lát.',
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+
+            // 🧪 Giả lập kiểm tra sai thông tin đăng nhập (sau 1.5s)
+            setTimeout(() => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Đăng nhập thất bại',
+                    text: 'Bạn chưa có tài khoản hoặc tài khoản của bạn chưa được kích hoạt, vui lòng liên hệ với chúng tôi để được hỗ trợ!',
+                    showCloseButton: true,
+                    showConfirmButton: false
+                });
+                document.getElementById("loginForm").reset();
+            }, 1500);
+        });
+
+        function togglePassword() {
+            const input = document.getElementById("password");
+            const type = input.getAttribute("type");
+            input.setAttribute("type", type === "password" ? "text" : "password");
+        }
+    </script>
+
+    <!-- Gắn header và footer HTML -->
+    <script src="header.js"></script>
+    <script>
+        // Load header và gọi initHeader
+        fetch('header.html')
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('header-container').innerHTML = html;
+                if (typeof initHeader === 'function') initHeader(); // Chắc chắn hàm tồn tại
+            });
+
+        // Load footer
+        fetch('footer.html')
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('footer-container').innerHTML = html;
+            });
+    </script>
+    <!-- End Gắn header và footer HTML -->
+
+</body>
+
+</html>

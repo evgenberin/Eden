@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="img/favicon.png">
+    <title>Chính sách nhận phòng</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .content {
+            max-width: 960px;
+            margin: 60px auto;
+            padding: 20px;
+        }
+
+        .content h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #0d4273;
+        }
+
+        .content h2 {
+            margin-top: 30px;
+            font-size: 22px;
+            color: #244b8a;
+        }
+
+        .content p {
+            margin-top: 10px;
+            text-align: justify;
+        }
+
+        ul {
+            margin-top: 10px;
+            padding-left: 20px;
+        }
+
+        .highlight {
+            font-weight: bold;
+        }
+
+        @media (max-width: 600px) {
+            .content {
+                margin: 30px 15px;
+                padding: 15px;
+            }
+
+            .content h1 {
+                font-size: 24px;
+            }
+
+            .content h2 {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div id="preloader-container"></div>
+    <script>
+        fetch('preloader.html')
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('preloader-container').innerHTML = html;
+                // Chờ 1–2 giây rồi mới hiển thị nội dung chính
+                setTimeout(() => {
+                    document.getElementById('main-content').style.display = 'block';
+                }, 1000); // hoặc lâu hơn tùy animation
+            });
+    </script>
+    <script src="preloader.js"></script>
+    <!-- End Preloader -->
+    <div id="main-content" style="display: none;">
+        <!-- Gắn header HTML -->
+        <div id="header-container"></div>
+        <!-- Nội dung -->
+        <div class="content">
+            <h1>Chính sách nhận phòng và lưu trú</h1>
+
+            <p>Sau khi hoàn tất đặt phòng và thanh toán, chúng tôi sẽ gửi xác nhận đặt phòng đến Quý khách qua email,
+                điện
+                thoại hoặc tin nhắn. Khi đến lưu trú, vui lòng xuất trình thông tin xác nhận để làm thủ tục nhận phòng.
+            </p>
+
+            <h2>1. Thời gian nhận và trả phòng</h2>
+            <p><span class="highlight">Nhận phòng:</span> sau 14h</p>
+            <p><span class="highlight">Trả phòng:</span> trước 12h trưa</p>
+
+            <h2>2. Chính sách nhận phòng sớm và trả phòng muộn</h2>
+            <p>Việc nhận phòng sớm hoặc trả phòng muộn tùy thuộc vào tình trạng phòng tại thời điểm đó và có thể phát
+                sinh
+                chi phí như sau:</p>
+
+            <p><strong>♦ Trả phòng muộn:</strong></p>
+            <ul>
+                <li>12:01 – 15:00: phụ thu 30% tiền phòng</li>
+                <li>15:01 – 17:00: phụ thu 50% tiền phòng</li>
+                <li>Sau 17:01: phụ thu 100% tiền phòng</li>
+            </ul>
+
+            <p><strong>♦ Nhận phòng sớm (cần thông báo trước 01 ngày):</strong></p>
+            <ul>
+                <li>Từ 9:00 – 13:00: phụ thu 50% tiền phòng</li>
+                <li>Trước 9:00: phụ thu 100% tiền phòng</li>
+            </ul>
+
+            <h2>3. Gửi hành lý và lưu ý khi lưu trú</h2>
+            <ul>
+                <li>Quý khách có thể gửi hành lý và vật dụng cá nhân tại quầy lễ tân trong thời gian chờ check-in và sau
+                    khi
+                    check-out.</li>
+                <li>Quý khách cần thanh toán đầy đủ tiền phòng, các khoản phát sinh hoặc thiệt hại (nếu có) ngay khi làm
+                    thủ
+                    tục trả phòng.</li>
+                <li>Tất cả các phòng đều là phòng không hút thuốc. Vui lòng tuân thủ để giữ gìn không gian chung.</li>
+                <li>Quý khách có trách nhiệm bồi thường nếu có hành vi gây đổ vỡ, hư hại đến cơ sở vật chất trong quá
+                    trình
+                    lưu trú.</li>
+            </ul>
+
+            <h2>4. Độ tuổi lưu trú</h2>
+            <ul>
+                <li>Khách lưu trú phải từ đủ 18 tuổi trở lên.</li>
+                <li>Trường hợp khách dưới 18 tuổi cần có thông tin xác minh của người giám hộ hợp pháp.</li>
+            </ul>
+        </div>
+        <div id="footer-container"></div>
+
+    </div>
+
+
+    <!-- Lucide icon script -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+
+    <!-- Gắn header và footer HTML -->
+    <script src="header.js"></script>
+    <script>
+        // Load header và gọi initHeader
+        fetch('header.html')
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('header-container').innerHTML = html;
+                if (typeof initHeader === 'function') initHeader(); // Chắc chắn hàm tồn tại
+            });
+
+        // Load footer
+        fetch('footer.html')
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('footer-container').innerHTML = html;
+            });
+    </script>
+    <!-- End Gắn header và footer HTML -->
+
+</body>
+
+</html>

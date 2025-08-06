@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="img/favicon.png">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <title>Liên hệ</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .contact-section {
+            max-width: 960px;
+            margin: 40px auto;
+            padding: 30px;
+            background: #fefefe;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+            font-family: 'Segoe UI', sans-serif;
+            animation: fadeIn 0.6s ease;
+        }
+
+        .contact-section h2 {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #0d4273;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .contact-form .form-group {
+            flex: 1 1 calc(50% - 20px);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .contact-form .form-group.full {
+            flex: 1 1 100%;
+        }
+
+        .contact-form label {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            font-size: 15px;
+            transition: border 0.3s;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            border-color: #0d4273;
+            outline: none;
+        }
+
+        .contact-form textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .contact-form button {
+            margin-top: 10px;
+            padding: 14px;
+            font-size: 16px;
+            background: #0d4273;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            width: 100%;
+        }
+
+        .contact-form button:hover {
+            background: #255e9e;
+        }
+
+        @media (max-width: 768px) {
+            .contact-form .form-group {
+                flex: 1 1 100%;
+            }
+
+            .contact-section {
+                margin: 20px 15px;
+                padding: 20px;
+            }
+
+            .contact-section h2 {
+                font-size: 24px;
+            }
+
+            .contact-form button {
+                font-size: 15px;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div id="preloader-container"></div>
+    <script>
+        fetch('preloader.html')
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('preloader-container').innerHTML = html;
+                // Chờ 1–2 giây rồi mới hiển thị nội dung chính
+                setTimeout(() => {
+                    document.getElementById('main-content').style.display = 'block';
+                }, 1000); // hoặc lâu hơn tùy animation
+            });
+    </script>
+    <script src="preloader.js"></script>
+    <!-- End Preloader -->
+
+    <div id="main-content" style="display: none;">
+
+        <!-- Gắn header HTML -->
+        <div id="header-container"></div>
+
+        <div class="contact-section">
+            <h2>Liên hệ với chúng tôi</h2>
+            <form class="contact-form" id="contactForm">
+                <div class="form-group">
+                    <label for="name">Họ và tên</label>
+                    <input type="text" id="name" placeholder="Nguyễn Văn A" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="email@domain.com" required>
+                </div>
+                <div class="form-group full">
+                    <label for="phone">Số điện thoại</label>
+                    <input type="text" id="phoneid" placeholder="0975757590" required>
+                </div>
+                <div class="form-group full">
+                    <label for="subject">Tiêu đề</label>
+                    <input type="text" id="subject" placeholder="Tiêu đề liên hệ" required>
+                </div>
+                <div class="form-group full">
+                    <label for="message">Nội dung</label>
+                    <textarea id="message" placeholder="Nội dung bạn muốn gửi..." required></textarea>
+                </div>
+                <div class="form-group full">
+                    <button type="submit">Gửi liên hệ</button>
+                </div>
+            </form>
+        </div>
+        <!-- Gắn footer HTML -->
+        <div id="footer-container"></div>
+    </div>
+
+    <!-- Lucide icon script -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+
+    <script>
+        document.getElementById("contactForm").addEventListener("submit", function (e) {
+            e.preventDefault(); // Ngăn reload
+
+            // Hiển thị loading
+            Swal.fire({
+                title: 'Đang xử lý...',
+                text: 'Vui lòng chờ trong giây lát.',
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+
+            // Mô phỏng xử lý backend (1.5s)
+            setTimeout(() => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Cảm ơn bạn đã liên hệ !',
+                    text: 'Chúng tôi sẽ phản hồi sớm nhất có thể.',
+                    showConfirmButton: false,
+                    showCloseButton: true, // 👉 Nút X để tắt
+                    timer: undefined // Không tự động đóng
+                });
+
+                // Optional: reset form sau khi đăng ký
+                document.getElementById("contactForm").reset();
+
+            }, 1500);
+        });
+    </script>
+
+    <!-- Gắn header và footer HTML -->
+    <script src="header.js"></script>
+    <script>
+        // Load header và gọi initHeader
+        fetch('header.html')
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('header-container').innerHTML = html;
+                if (typeof initHeader === 'function') initHeader(); // Chắc chắn hàm tồn tại
+            });
+
+        // Load footer
+        fetch('footer.html')
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('footer-container').innerHTML = html;
+            });
+    </script>
+    <!-- End Gắn header và footer HTML -->
+
+</body>
+
+</html>
