@@ -18,23 +18,34 @@ app.use(express.static(path.join(__dirname, ".."))); // phục vụ tất cả f
 // ===== API Proxy =====
 const API_BASE_URL = "https://6891f14a447ff4f11fbe7065.mockapi.io/users";
 
-// ✅ Middleware chặn truy cập không hợp lệ
+// ✅ Middleware chặn truy cập không hợp lệ (allow localhost khi dev)
 app.use("/api", (req, res, next) => {
   const referer = req.headers.referer || "";
-  if (!referer.startsWith("https://eden-teyz.onrender.com")) {
+  if (
+    !referer.startsWith("https://eden-teyz.onrender.com") &&
+    !referer.startsWith("http://localhost")
+  ) {
     return res.status(403).json({ error: "Forbidden" });
   }
   next();
 });
 
-// ✅ GET users (chỉ trả dữ liệu an toàn)
+// ✅ GET users (trả dữ liệu đầy đủ cho frontend)
 app.get("/api/users", async (req, res) => {
   try {
     const response = await fetch(API_BASE_URL);
+    if (!response.ok) {
+      return res.status(response.status).json({ error: "API GET lỗi" });
+    }
+
     const users = await response.json();
 
-    // Ẩn các field nhạy cảm, chỉ trả về frontend phần cần hiển thị
+    // Giữ đủ field cần cho frontend
     const safeUsers = users.map(u => ({
+      id: u.id,
+      name: u.name,
+      status: u.status,
+      sort: u.sort,
       bookingcode: u.bookingcode,
       linkqr: u.linkqr,
       amount: u.amount
@@ -42,6 +53,7 @@ app.get("/api/users", async (req, res) => {
 
     res.json(safeUsers);
   } catch (error) {
+    console.error("❌ Lỗi khi GET API:", error);
     res.status(500).json({ error: "Lỗi khi gọi API" });
   }
 });
@@ -55,9 +67,15 @@ app.put("/api/users/:id", async (req, res) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(req.body),
     });
+
+    if (!response.ok) {
+      return res.status(response.status).json({ error: "API PUT lỗi" });
+    }
+
     const data = await response.json();
     res.json(data);
   } catch (error) {
+    console.error("❌ Lỗi khi PUT API:", error);
     res.status(500).json({ error: "Lỗi khi update API" });
   }
 });
@@ -69,5 +87,6 @@ app.get("*", (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
 
 
