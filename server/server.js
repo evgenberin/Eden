@@ -1,14 +1,24 @@
+// server/server.js
 import express from "express";
 import fetch from "node-fetch";
 import cors from "cors";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
+// ===== Serve frontend =====
+app.use(express.static(path.join(__dirname, ".."))); // phục vụ tất cả file ở root repo
+
+// ===== API Proxy =====
 const API_BASE_URL = "https://6891f14a447ff4f11fbe7065.mockapi.io/users";
 
-// Proxy GET
+// GET users
 app.get("/api/users", async (req, res) => {
   try {
     const response = await fetch(API_BASE_URL);
@@ -19,7 +29,7 @@ app.get("/api/users", async (req, res) => {
   }
 });
 
-// Proxy PUT
+// PUT update user
 app.put("/api/users/:id", async (req, res) => {
   try {
     const { id } = req.params;
@@ -35,5 +45,11 @@ app.put("/api/users/:id", async (req, res) => {
   }
 });
 
+// ===== Serve index.html cho mọi route khác =====
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "..", "index.html"));
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
