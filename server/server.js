@@ -23,6 +23,11 @@ const whitelist = [
   "https://evgenberin.github.io/"  // GitHub Pages
 ];
 
+// Ping
+app.get("/ping", (req, res) => {
+  res.send("pong");
+});
+
 app.use("/api", (req, res, next) => {
   const referer = req.headers.referer || "";
 
